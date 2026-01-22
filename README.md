@@ -19,14 +19,18 @@ The project uses DIO abstraction to read from input channels and provide button 
 
 ## Architecture Position
 
+The Button module is positioned above the DIO driver and below the application layer. It reads digital input states through the DIO interface and provides debounced button states to the application. The module relies on periodic update calls; time management is handled externally and is not part of the driver.
+
 
 ```
+Application Layer
 │
-├── 
+├── Button Driver
 │
-├──
+├── DIO Driver
 │
-└──
+└── MCU GPIO Registers
+
 ```
 ---
 
