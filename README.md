@@ -42,6 +42,9 @@ The Button module uses a compile-time configuration table to define its input so
 
 ## API Overview
 
+- Button_Init: Initializes the Button module and internal states based on the configuration
+- Button_Update: Periodically updates the debounced state of each configured button
+- Button_GetState: Provides the debounced button state to the application layer
 
 ---
 
