@@ -50,6 +50,10 @@ The Button module uses a compile-time configuration table to define its input so
 
 ## Error Handling and Assumptions
 
+- Assumes the configuration is correctly defined at compile time
+- Assumes the update function is called periodically
+- Does not perform runtime parameter validation
+- Does not report errors via return values
 
 ---
 
