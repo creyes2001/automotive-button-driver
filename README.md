@@ -35,6 +35,7 @@ Application Layer
 ---
 
 ## Configuration Concept
+The Button module uses a compile-time configuration table to define its input sources. Each configuration entry references a DIO channel identifier and specifies the active level of the button. The Button driver uses this information to interpret the digital input state provided by the DIO driver.
 
 
 ---
