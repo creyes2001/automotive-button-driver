@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include "dio.h"
+#include "dio_cfg.h"
 
 typedef enum
 {
@@ -21,7 +22,7 @@ typedef enum
 typedef struct
 {
 	Dio_ChannelType channelId;
-	Button_Polarity polarity;
+	Button_PolarityType polarity;
 	uint16_t 		debounceThreshold;
 }Button_ConfigType;
 

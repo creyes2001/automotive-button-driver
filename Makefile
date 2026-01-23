@@ -14,7 +14,12 @@ TARGET = $(BIN_DIR)/dio
     
 SOURCES = main.c\
 		  src/dio.c\
-		  src/dio_cfg.c
+		  src/dio_cfg.c\
+		  src/button.c\
+		  src/button_cfg.c\
+		  src/scheduler.c\
+		  src/timer0.c\
+		  src/interrupts.c
            
     
 OBJECT_NAMES = $(SOURCES:.c=.p1)

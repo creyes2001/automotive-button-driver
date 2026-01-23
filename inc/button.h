@@ -5,8 +5,8 @@
 
 typedef enum
 {
-	BUTTON_STATE_RELEASED = 0,
-	BUTTON_STATE_PRESSED
+	BUTTON_RELEASED = 0,
+	BUTTON_PRESSED
 }Button_StateType;
 
 void Button_Init(void);

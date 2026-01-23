@@ -1,0 +1,176 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"6 src/button.c
+[c E63 0 1 .. ]
+[n E63 . DIO_LEVEL_LOW DIO_LEVEL_HIGH  ]
+"12
+[c E36 0 1 .. ]
+[n E36 . BUTTON_RELEASED BUTTON_PRESSED  ]
+"17
+[c E44 0 1 2 3 4 .. ]
+[n E44 . DIO_CH_DOOR_SWITCH DIO_CH_COURTESY_LAMP DIO_CH_TURN_SIGNAL_LAMP DIO_CH_HAZARD_LAMP DIO_CH_MAX  ]
+[c E78 0 1 .. ]
+[n E78 . BUTTON_ACTIVE_LOW BUTTON_ACTIVE_HIGH  ]
+"23 inc/button_cfg.h
+[s S2 `E44 1 `E78 1 `us 1 ]
+[n S2 . channelId polarity debounceThreshold ]
+"29
+[v _Button_Config `CS2 ~T0 @X0 -> 0 `x e ]
+"32 src/button.c
+[c E73 0 1 2 .. ]
+[n E73 . BUTTON_0 BUTTON_1 BUTTON_MAX  ]
+"15 inc/dio.h
+[v _Dio_ReadChannel `(E63 ~T0 @X0 0 ef1`E44 ]
+"6 src/button.c
+[v _Button_LastRawLevel `E63 ~T0 @X0 -> 2 `i s ]
+"9
+[v _Button_DebounceCounter `us ~T0 @X0 -> 2 `i s ]
+"12
+[v _Button_State `E36 ~T0 @X0 -> 2 `i s ]
+"15
+[v _Button_InterpretLevel `(E36 ~T0 @X0 1 sf2`uc`E63 ]
+"16
+{
+[e :U _Button_InterpretLevel ]
+"15
+[v _buttonId `uc ~T0 @X0 1 r1 ]
+[v _level `E63 ~T0 @X0 1 r2 ]
+"16
+[f ]
+"17
+[e $ ! == -> . *U + &U _Button_Config * -> _buttonId `ux -> -> # *U &U _Button_Config `ui `ux 1 `ui -> . `E78 1 `ui 4  ]
+"18
+{
+"19
+[e ) -> ? == -> _level `ui -> . `E63 1 `ui : . `E36 1 . `E36 0 `E36 ]
+[e $UE 3  ]
+"20
+}
+[e $U 5  ]
+"21
+[e :U 4 ]
+"22
+{
+"23
+[e ) -> ? == -> _level `ui -> . `E63 0 `ui : . `E36 1 . `E36 0 `E36 ]
+[e $UE 3  ]
+"24
+}
+[e :U 5 ]
+"25
+[e :UE 3 ]
+}
+"28
+[v _Button_Init `(v ~T0 @X0 1 ef ]
+"29
+{
+[e :U _Button_Init ]
+[f ]
+"30
+[v _i `uc ~T0 @X0 1 a ]
+"32
+{
+[e = _i -> -> 0 `ui `uc ]
+[e $ < -> _i `i -> . `E73 2 `i 7  ]
+[e $U 8  ]
+[e :U 7 ]
+"33
+{
+"34
+[e = *U + &U _Button_LastRawLevel * -> _i `ux -> -> # *U &U _Button_LastRawLevel `ui `ux ( _Dio_ReadChannel (1 . *U + &U _Button_Config * -> _i `ux -> -> # *U &U _Button_Config `ui `ux 0 ]
+"35
+[e = *U + &U _Button_DebounceCounter * -> _i `ux -> -> # *U &U _Button_DebounceCounter `ui `ux -> -> 0 `ui `us ]
+"36
+[e = *U + &U _Button_State * -> _i `ux -> -> # *U &U _Button_State `ui `ux . `E36 0 ]
+"37
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> . `E73 2 `i 7  ]
+[e :U 8 ]
+}
+"39
+[e :UE 6 ]
+}
+"41
+[v _Button_Update `(v ~T0 @X0 1 ef ]
+"42
+{
+[e :U _Button_Update ]
+[f ]
+"43
+[v _i `uc ~T0 @X0 1 a ]
+"44
+[v _currentRaw `E63 ~T0 @X0 1 a ]
+"45
+[v _interpretedState `E36 ~T0 @X0 1 a ]
+"47
+{
+[e = _i -> -> 0 `ui `uc ]
+[e $ < -> _i `i -> . `E73 2 `i 11  ]
+[e $U 12  ]
+[e :U 11 ]
+"48
+{
+"49
+[e = _currentRaw ( _Dio_ReadChannel (1 . *U + &U _Button_Config * -> _i `ux -> -> # *U &U _Button_Config `ui `ux 0 ]
+"51
+[e $ ! == -> _currentRaw `ui -> *U + &U _Button_LastRawLevel * -> _i `ux -> -> # *U &U _Button_LastRawLevel `ui `ux `ui 14  ]
+"52
+{
+"53
+[e $ ! < -> *U + &U _Button_DebounceCounter * -> _i `ux -> -> # *U &U _Button_DebounceCounter `ui `ux `ui -> . *U + &U _Button_Config * -> _i `ux -> -> # *U &U _Button_Config `ui `ux 2 `ui 15  ]
+"54
+{
+"55
+[e ++ *U + &U _Button_DebounceCounter * -> _i `ux -> -> # *U &U _Button_DebounceCounter `ui `ux -> -> 1 `i `us ]
+"56
+}
+[e $U 16  ]
+"57
+[e :U 15 ]
+"58
+{
+"59
+[e = _interpretedState ( _Button_InterpretLevel (2 , _i _currentRaw ]
+"60
+[e = *U + &U _Button_State * -> _i `ux -> -> # *U &U _Button_State `ui `ux _interpretedState ]
+"61
+}
+[e :U 16 ]
+"62
+}
+[e $U 17  ]
+"63
+[e :U 14 ]
+"64
+{
+"65
+[e = *U + &U _Button_DebounceCounter * -> _i `ux -> -> # *U &U _Button_DebounceCounter `ui `ux -> -> 0 `ui `us ]
+"66
+[e = *U + &U _Button_LastRawLevel * -> _i `ux -> -> # *U &U _Button_LastRawLevel `ui `ux _currentRaw ]
+"67
+}
+[e :U 17 ]
+"68
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> . `E73 2 `i 11  ]
+[e :U 12 ]
+}
+"69
+[e :UE 10 ]
+}
+"71
+[v _Button_GetState `(E36 ~T0 @X0 1 ef1`uc ]
+"72
+{
+[e :U _Button_GetState ]
+"71
+[v _buttonId `uc ~T0 @X0 1 r1 ]
+"72
+[f ]
+"73
+[e ) *U + &U _Button_State * -> _buttonId `ux -> -> # *U &U _Button_State `ui `ux ]
+[e $UE 18  ]
+"74
+[e :UE 18 ]
+}

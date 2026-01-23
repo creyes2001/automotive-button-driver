@@ -1,5 +1,4 @@
 #include "dio.h"
-#include "dio_cfg.h"
 
 void Dio_Init(void)
 {
@@ -18,7 +17,7 @@ void Dio_Init(void)
 	}
 }
 
-Dio_LevelType Dio_ReadChannel(uint8_t channelId)
+Dio_LevelType Dio_ReadChannel(Dio_ChannelType channelId)
 {
 	if(*(Dio_ChannelConfig[channelId].port) & Dio_ChannelConfig[channelId].pinMask)
 	{
@@ -30,7 +29,7 @@ Dio_LevelType Dio_ReadChannel(uint8_t channelId)
 	}
 }
 
-void Dio_WriteChannel(uint8_t channelId, Dio_LevelType level)
+void Dio_WriteChannel(Dio_ChannelType channelId, Dio_LevelType level)
 {
 	if(level == DIO_LEVEL_HIGH)
 	{

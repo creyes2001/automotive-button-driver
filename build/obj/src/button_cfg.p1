@@ -1,0 +1,25 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"3 src/button_cfg.c
+[c E36 0 1 2 3 4 5 .. ]
+[n E36 . DIO_CH_DOOR_SWITCH DIO_CH_COURTESY_LAMP DIO_CH_TURN_SIGNAL_LAMP DIO_CH_HAZARD_LAMP DIO_CH_HAZARD_SWITCH DIO_CH_MAX  ]
+[c E71 0 1 .. ]
+[n E71 . BUTTON_ACTIVE_LOW BUTTON_ACTIVE_HIGH  ]
+"23 inc/button_cfg.h
+[s S2 `E36 1 `E71 1 `us 1 ]
+[n S2 . channelId polarity debounceThreshold ]
+"3 src/button_cfg.c
+[v _Button_Config `CS2 ~T0 @X0 -> 2 `i e ]
+[i _Button_Config
+:U ..
+:U ..
+. `E36 0
+. `E71 0
+-> -> 3 `i `us
+..
+:U ..
+. `E36 4
+. `E71 0
+-> -> 3 `i `us
+..
+..
+]

@@ -1,0 +1,560 @@
+%CMF
+# %PSECTS Section
+# For each object file, details of its psects are enumerated here.
+# The begining of the section is indicated by %PSECTS.  The first
+# line indicates the name of the first object file, e.g.
+#    $foo.obj
+# Each line that follows describes a psect in that object file, until
+# the next object file.  The lines that describe a psect have the
+# format:
+#    <psect name> <class name> <space> <link address> <load addresses> <length> <delta> <reloc>
+# All addresses and the length are given in unqualified hexadecimal
+# in delta units.  Any other numeric values are decimal.
+%PSECTS
+$build/bin/dio.o
+cinit CODE 0 D20 D20 1A 1 2
+intcode_body CODE 0 C9C C9C 4E 1 2
+text0 CODE 0 CEA CEA 36 1 2
+text1 CODE 0 D74 D74 4 1 2
+text2 CODE 0 D3A D3A 1A 1 2
+text3 CODE 0 D54 D54 A 1 2
+text4 CODE 0 ACC ACC 6A 1 2
+text5 CODE 0 D68 D68 6 1 2
+text6 CODE 0 908 908 DA 1 2
+text7 CODE 0 B36 B36 5E 1 2
+text8 CODE 0 C46 C46 56 1 2
+text9 CODE 0 B94 B94 5A 1 2
+text10 CODE 0 D6E D6E 6 1 2
+text11 CODE 0 82A 82A DE 1 2
+text12 CODE 0 BEE BEE 58 1 2
+text13 CODE 0 A5E A5E 6E 1 2
+text15 CODE 0 D5E D5E A 1 2
+text16 CODE 0 9E2 9E2 7C 1 2
+cstackCOMRAM COMRAM 1 2E 2E 1C 1 1
+intcode CODE 0 8 8 6 1 2
+smallconst SMALLCONST 0 800 800 2A 1 2
+bssCOMRAM COMRAM 1 2 2 2C 1 1
+config CONFIG 4 300000 300000 8 1 1
+$build/bin/startup.o
+init CODE 0 E E 4 1 2
+reset_vec CODE 0 0 0 4 1 2
+config CONFIG 4 300000 300000 8 1 1
+# %UNUSED Section
+# This section enumerates the unused ranges of each CLASS. Each entry
+# is described on a single line as follows:
+#    <class name> <range> <delta>
+# Addresses given in the range are in hexadecimal and units of delta.
+%UNUSED
+RAM 60-7FF 1
+SFR F60-FFF 1
+BANK0 60-FF 1
+BANK1 100-1FF 1
+BANK2 200-2FF 1
+BANK3 300-3FF 1
+BANK4 400-4FF 1
+BANK5 500-5FF 1
+BANK6 600-6FF 1
+BANK7 700-7FF 1
+CONST 4-7 1
+CONST 12-7FF 1
+CONST D78-7FFF 1
+IDLOC 200000-200007 1
+SMALLCONST D78-7FFF 1
+CODE 4-7 1
+CODE 12-7FF 1
+CODE D78-7FFF 1
+BIGRAM 4A-7FF 1
+BIGSFR F60-FFF 1
+COMRAM 4A-5F 1
+CONFIG 300008-30000D 1
+EEDATA F00000-F000FF 1
+MEDIUMCONST D78-7FFF 1
+# %LINETAB Section
+# This section enumerates the file/line to address mappings.
+# The beginning of the section is indicated by %LINETAB.
+# The first line indicates the name of the first object file, e.g.
+#   $foo.obj
+# Each line that follows describes a single mapping until the next
+# object file.  Mappings have the following format:
+#    <address> <psect name> <class name> ><line number>:<file name>
+# The address is absolute and given given in unqualified hex 
+# in delta units of the psect. All mappings within an object file
+# are in ascending order of addresses.
+# All other numeric values are in decimal.
+%LINETAB
+$build/bin/dio.o
+8 intcode CODE >3560:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+8 intcode CODE >10:/home/reyes/embedded/automotive/button_driver/main.c
+9E2 text16 CODE >33:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+9E2 text16 CODE >36:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+9E8 text16 CODE >38:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+9FA text16 CODE >39:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+A28 text16 CODE >41:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+A38 text16 CODE >42:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+A48 text16 CODE >44:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+A5C text16 CODE >45:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+D5E text15 CODE >30:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D5E text15 CODE >32:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D62 text15 CODE >33:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D66 text15 CODE >34:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+C9C intcode_body CODE >10:/home/reyes/embedded/automotive/button_driver/main.c
+CB6 intcode_body CODE >12:/home/reyes/embedded/automotive/button_driver/main.c
+CC4 intcode_body CODE >14:/home/reyes/embedded/automotive/button_driver/main.c
+CC8 intcode_body CODE >15:/home/reyes/embedded/automotive/button_driver/main.c
+CCC intcode_body CODE >16:/home/reyes/embedded/automotive/button_driver/main.c
+CCE intcode_body CODE >18:/home/reyes/embedded/automotive/button_driver/main.c
+A5E text13 CODE >20:/home/reyes/embedded/automotive/button_driver/src/dio.c
+A60 text13 CODE >22:/home/reyes/embedded/automotive/button_driver/src/dio.c
+AC2 text13 CODE >24:/home/reyes/embedded/automotive/button_driver/src/dio.c
+AC8 text13 CODE >28:/home/reyes/embedded/automotive/button_driver/src/dio.c
+ACA text13 CODE >30:/home/reyes/embedded/automotive/button_driver/src/dio.c
+BEE text12 CODE >28:/home/reyes/embedded/automotive/button_driver/src/button.c
+BEE text12 CODE >32:/home/reyes/embedded/automotive/button_driver/src/button.c
+BF0 text12 CODE >34:/home/reyes/embedded/automotive/button_driver/src/button.c
+C18 text12 CODE >35:/home/reyes/embedded/automotive/button_driver/src/button.c
+C28 text12 CODE >36:/home/reyes/embedded/automotive/button_driver/src/button.c
+C32 text12 CODE >37:/home/reyes/embedded/automotive/button_driver/src/button.c
+C44 text12 CODE >39:/home/reyes/embedded/automotive/button_driver/src/button.c
+82A text11 CODE >3:/home/reyes/embedded/automotive/button_driver/src/dio.c
+82A text11 CODE >7:/home/reyes/embedded/automotive/button_driver/src/dio.c
+82C text11 CODE >9:/home/reyes/embedded/automotive/button_driver/src/dio.c
+85A text11 CODE >11:/home/reyes/embedded/automotive/button_driver/src/dio.c
+8A4 text11 CODE >12:/home/reyes/embedded/automotive/button_driver/src/dio.c
+8A8 text11 CODE >15:/home/reyes/embedded/automotive/button_driver/src/dio.c
+8F4 text11 CODE >17:/home/reyes/embedded/automotive/button_driver/src/dio.c
+906 text11 CODE >18:/home/reyes/embedded/automotive/button_driver/src/dio.c
+D6E text10 CODE >4:/home/reyes/embedded/automotive/button_driver/src/interrupts.c
+D6E text10 CODE >6:/home/reyes/embedded/automotive/button_driver/src/interrupts.c
+D70 text10 CODE >7:/home/reyes/embedded/automotive/button_driver/src/interrupts.c
+D72 text10 CODE >8:/home/reyes/embedded/automotive/button_driver/src/interrupts.c
+B94 text9 CODE >21:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+B94 text9 CODE >23:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+BA4 text9 CODE >25:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+BB8 text9 CODE >26:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+BCC text9 CODE >27:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+BDC text9 CODE >28:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+BEA text9 CODE >30:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+BEC text9 CODE >31:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+C46 text8 CODE >8:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+C46 text8 CODE >11:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+C48 text8 CODE >13:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+C58 text8 CODE >14:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+C68 text8 CODE >15:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+C78 text8 CODE >16:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+C86 text8 CODE >17:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+C98 text8 CODE >18:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+C9A text8 CODE >19:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+B36 text7 CODE >15:/home/reyes/embedded/automotive/button_driver/src/button.c
+B38 text7 CODE >17:/home/reyes/embedded/automotive/button_driver/src/button.c
+B66 text7 CODE >19:/home/reyes/embedded/automotive/button_driver/src/button.c
+B7E text7 CODE >23:/home/reyes/embedded/automotive/button_driver/src/button.c
+B92 text7 CODE >25:/home/reyes/embedded/automotive/button_driver/src/button.c
+908 text6 CODE >41:/home/reyes/embedded/automotive/button_driver/src/button.c
+908 text6 CODE >47:/home/reyes/embedded/automotive/button_driver/src/button.c
+90A text6 CODE >49:/home/reyes/embedded/automotive/button_driver/src/button.c
+926 text6 CODE >51:/home/reyes/embedded/automotive/button_driver/src/button.c
+940 text6 CODE >53:/home/reyes/embedded/automotive/button_driver/src/button.c
+980 text6 CODE >55:/home/reyes/embedded/automotive/button_driver/src/button.c
+992 text6 CODE >56:/home/reyes/embedded/automotive/button_driver/src/button.c
+996 text6 CODE >59:/home/reyes/embedded/automotive/button_driver/src/button.c
+9A2 text6 CODE >60:/home/reyes/embedded/automotive/button_driver/src/button.c
+9B2 text6 CODE >65:/home/reyes/embedded/automotive/button_driver/src/button.c
+9C2 text6 CODE >66:/home/reyes/embedded/automotive/button_driver/src/button.c
+9CE text6 CODE >68:/home/reyes/embedded/automotive/button_driver/src/button.c
+9E0 text6 CODE >69:/home/reyes/embedded/automotive/button_driver/src/button.c
+D68 text5 CODE >20:/home/reyes/embedded/automotive/button_driver/main.c
+D68 text5 CODE >22:/home/reyes/embedded/automotive/button_driver/main.c
+D6C text5 CODE >23:/home/reyes/embedded/automotive/button_driver/main.c
+ACC text4 CODE >47:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+ACC text4 CODE >50:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+AD2 text4 CODE >52:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+AEE text4 CODE >54:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+AFC text4 CODE >55:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+B20 text4 CODE >57:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+B34 text4 CODE >58:/home/reyes/embedded/automotive/button_driver/src/scheduler.c
+D54 text3 CODE >30:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D54 text3 CODE >32:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D58 text3 CODE >33:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D5C text3 CODE >34:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D3A text2 CODE >6:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D3A text2 CODE >8:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D3C text2 CODE >9:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D3E text2 CODE >10:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D40 text2 CODE >11:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D42 text2 CODE >12:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D4A text2 CODE >14:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D4E text2 CODE >16:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D50 text2 CODE >17:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D52 text2 CODE >18:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D74 text1 CODE >20:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D74 text1 CODE >22:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+D76 text1 CODE >23:/home/reyes/embedded/automotive/button_driver/src/timer0.c
+CEA text0 CODE >26:/home/reyes/embedded/automotive/button_driver/main.c
+CEA text0 CODE >28:/home/reyes/embedded/automotive/button_driver/main.c
+CEE text0 CODE >29:/home/reyes/embedded/automotive/button_driver/main.c
+CF2 text0 CODE >30:/home/reyes/embedded/automotive/button_driver/main.c
+CF6 text0 CODE >31:/home/reyes/embedded/automotive/button_driver/main.c
+CFA text0 CODE >32:/home/reyes/embedded/automotive/button_driver/main.c
+CFE text0 CODE >34:/home/reyes/embedded/automotive/button_driver/main.c
+D02 text0 CODE >37:/home/reyes/embedded/automotive/button_driver/main.c
+D14 text0 CODE >41:/home/reyes/embedded/automotive/button_driver/main.c
+D20 cinit CODE >1614:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D20 cinit CODE >1616:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D20 cinit CODE >1619:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D20 cinit CODE >1638:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D24 cinit CODE >1639:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D26 cinit CODE >1640:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D26 cinit CODE >1641:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D28 cinit CODE >1642:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D2A cinit CODE >1643:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D2C cinit CODE >1649:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D2C cinit CODE >1651:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D2E cinit CODE >1652:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D30 cinit CODE >1654:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D32 cinit CODE >1655:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D34 cinit CODE >1656:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+D36 cinit CODE >1657:/home/reyes/embedded/automotive/button_driver/build/bin/dio.s
+$build/bin/startup.o
+E init CODE >101:/home/reyes/embedded/automotive/button_driver/build/bin/startup.s
+0 reset_vec CODE >66:/home/reyes/embedded/automotive/button_driver/build/bin/startup.s
+# %SYMTAB Section
+# An enumeration of all symbols in the program.
+# The beginning of the section is indicated by %SYMTAB.
+# Each line describes a single symbol as follows:
+#    <label> <value> [-]<load-adj> <class> <space> <psect> <file-name>
+# The value and load-adj are both in unqualified hexadecimal.
+# All other numeric values are in decimal.  The load-adj is the
+# quantity one needs to add to the symbol value in order to obtain the load
+# address of the symbol.  This value may be signed. If the symbol
+# was defined in a psect then <psect> will be "-". File-name
+# is the name of the object file in which the symbol was defined.
+%SYMTAB
+__Lmediumconst 0 0 MEDIUMCONST 0 mediumconst build/bin/dio.o
+__Hspace_0 D78 0 ABS 0 - build/bin/dio.o
+__Hspace_1 4A 0 ABS 0 - build/bin/dio.o
+__Hspace_2 0 0 ABS 0 - build/bin/dio.o
+__Hspace_4 600008 0 ABS 0 - build/bin/dio.o
+__Hibigdata 0 0 CODE 0 ibigdata build/bin/dio.o
+__mediumconst 800 0 SMALLCONST 0 smallconst build/bin/dio.o
+__Heeprom_data 0 0 EEDATA 0 eeprom_data build/bin/dio.o
+__end_of_scheduler_init C9C 0 CODE 0 text8 build/bin/dio.o
+__end_of_scheduler_tick A5E 0 CODE 0 text16 build/bin/dio.o
+__L__absolute__ 0 0 ABS 0 __absolute__ build/bin/dio.o
+__end_of_button_task D6E 0 CODE 0 text5 build/bin/dio.o
+__Lsmallconst 800 0 SMALLCONST 0 smallconst build/bin/dio.o
+_LATB F8A 0 ABS 0 - build/bin/dio.o
+_LATC F8B 0 ABS 0 - build/bin/dio.o
+___sp 0 0 STACK 2 stack build/bin/startup.o
+_main CEA 0 CODE 0 text0 build/bin/dio.o
+btemp 1 0 ABS 0 - build/bin/dio.o
+___stack_hi 0 0 STACK 2 stack build/bin/startup.o
+___stack_lo 0 0 STACK 2 stack build/bin/startup.o
+start E 0 CODE 0 init build/bin/startup.o
+__HbssCOMRAM 0 0 ABS 0 bssCOMRAM build/bin/dio.o
+_Button_DebounceCounter 25 0 COMRAM 1 bssCOMRAM build/bin/dio.o
+__Hpowerup 0 0 CODE 0 powerup build/bin/dio.o
+__end_of_scheduler_add_task BEE 0 CODE 0 text9 build/bin/dio.o
+_T0CONbits FD5 0 ABS 0 - build/bin/dio.o
+__accesstop 60 0 ABS 0 - build/bin/startup.o
+intlevel0 0 0 CODE 0 text build/bin/startup.o
+intlevel1 0 0 CODE 0 text build/bin/startup.o
+intlevel2 0 0 CODE 0 text build/bin/startup.o
+intlevel3 0 0 CODE 0 text build/bin/startup.o
+__LbssCOMRAM 0 0 ABS 0 bssCOMRAM build/bin/dio.o
+__end_of_timer0_start D78 0 CODE 0 text1 build/bin/dio.o
+Button_InterpretLevel@buttonId 3C 0 COMRAM 1 cstackCOMRAM build/bin/dio.o
+__LnvFARRAM 0 0 FARRAM 0 nvFARRAM build/bin/dio.o
+_timer0_init D3A 0 CODE 0 text2 build/bin/dio.o
+__Hifardata 0 0 CODE 0 ifardata build/bin/dio.o
+__Hclrtext 0 0 ABS 0 clrtext build/bin/dio.o
+_scheduler_add_task B94 0 CODE 0 text9 build/bin/dio.o
+___inthi_sp 0 0 STACK 2 stack build/bin/startup.o
+___intlo_sp 0 0 STACK 2 stack build/bin/startup.o
+_Button_LastRawLevel 2B 0 COMRAM 1 bssCOMRAM build/bin/dio.o
+__Hintcode_body 0 0 ABS 0 intcode_body build/bin/dio.o
+__end_of_enable_gi D74 0 CODE 0 text10 build/bin/dio.o
+__Lintsave_regs 0 0 BIGRAM 1 intsave_regs build/bin/dio.o
+__Hmediumconst 0 0 MEDIUMCONST 0 mediumconst build/bin/dio.o
+__Hintcodelo 18 0 CODE 0 intcodelo build/bin/dio.o
+scheduler_init@i 39 0 COMRAM 1 cstackCOMRAM build/bin/dio.o
+_timer0_reload D54 0 CODE 0 text3 build/bin/dio.o
+__end_of_Dio_ReadChannel ACC 0 CODE 0 text13 build/bin/dio.o
+_enable_gi D6E 0 CODE 0 text10 build/bin/dio.o
+_scheduler_run ACC 0 CODE 0 text4 build/bin/dio.o
+__Lintcodelo 18 0 CODE 0 intcodelo build/bin/dio.o
+start_initialization D20 0 CODE 0 cinit build/bin/dio.o
+__HnvFARRAM 0 0 FARRAM 0 nvFARRAM build/bin/dio.o
+___rparam_used 1 0 ABS 0 - build/bin/dio.o
+scheduler_tick@i 32 0 COMRAM 1 cstackCOMRAM build/bin/dio.o
+_Button_Config 821 0 SMALLCONST 0 smallconst build/bin/dio.o
+__end_of_Button_Init C46 0 CODE 0 text12 build/bin/dio.o
+isa$xinst 0 0 ABS 0 - build/bin/startup.o
+_Dio_ReadChannel A5E 0 CODE 0 text13 build/bin/dio.o
+__Hbank0 0 0 ABS 0 bank0 build/bin/dio.o
+__Hbank1 0 0 ABS 0 bank1 build/bin/dio.o
+__Hbank2 0 0 ABS 0 bank2 build/bin/dio.o
+__Hbank3 0 0 ABS 0 bank3 build/bin/dio.o
+__Hbank4 0 0 ABS 0 bank4 build/bin/dio.o
+__Hbank5 0 0 ABS 0 bank5 build/bin/dio.o
+__Hbank6 0 0 ABS 0 bank6 build/bin/dio.o
+__Hbank7 0 0 ABS 0 bank7 build/bin/dio.o
+__Hcinit 0 0 ABS 0 cinit build/bin/dio.o
+__Hconst 0 0 CONST 0 const build/bin/dio.o
+__Hidata 0 0 CODE 0 idata build/bin/dio.o
+__Hidloc 0 0 ABS 0 idloc build/bin/dio.o
+__Hnvbit 0 0 COMRAM 1 nvbit build/bin/dio.o
+__Hparam 0 0 COMRAM 1 rparam build/bin/dio.o
+__Hrdata 0 0 COMRAM 1 rdata build/bin/dio.o
+__Hstack 0 0 STACK 2 stack build/bin/dio.o
+__Htext0 0 0 ABS 0 text0 build/bin/dio.o
+__Htext1 0 0 ABS 0 text1 build/bin/dio.o
+__Htext2 0 0 ABS 0 text2 build/bin/dio.o
+__Htext3 0 0 ABS 0 text3 build/bin/dio.o
+__Htext4 0 0 ABS 0 text4 build/bin/dio.o
+__Htext5 0 0 ABS 0 text5 build/bin/dio.o
+__Htext6 0 0 ABS 0 text6 build/bin/dio.o
+__Htext7 0 0 ABS 0 text7 build/bin/dio.o
+__Htext8 0 0 ABS 0 text8 build/bin/dio.o
+__Htext9 0 0 ABS 0 text9 build/bin/dio.o
+__Hbigbss 0 0 BIGRAM 1 bigbss build/bin/dio.o
+__Hbigram 0 0 ABS 0 bigram build/bin/dio.o
+__Hbigsfr 0 0 ABS 0 bigsfr build/bin/dio.o
+__smallconst 800 0 SMALLCONST 0 smallconst build/bin/dio.o
+__Hcomram 0 0 ABS 0 comram build/bin/dio.o
+__Hconfig 300008 0 CONFIG 4 config build/bin/dio.o
+__Lbank0 0 0 ABS 0 bank0 build/bin/dio.o
+__Lbank1 0 0 ABS 0 bank1 build/bin/dio.o
+__Lbank2 0 0 ABS 0 bank2 build/bin/dio.o
+__Lbank3 0 0 ABS 0 bank3 build/bin/dio.o
+__Lbank4 0 0 ABS 0 bank4 build/bin/dio.o
+__Lbank5 0 0 ABS 0 bank5 build/bin/dio.o
+__Lbank6 0 0 ABS 0 bank6 build/bin/dio.o
+__Lbank7 0 0 ABS 0 bank7 build/bin/dio.o
+__Lcinit 0 0 ABS 0 cinit build/bin/dio.o
+__Lconst 0 0 CONST 0 const build/bin/dio.o
+__Lidata 0 0 CODE 0 idata build/bin/dio.o
+__Lidloc 0 0 ABS 0 idloc build/bin/dio.o
+__Lnvbit 0 0 COMRAM 1 nvbit build/bin/dio.o
+__Lparam 0 0 COMRAM 1 rparam build/bin/dio.o
+__Lrdata 0 0 COMRAM 1 rdata build/bin/dio.o
+__Lstack 0 0 STACK 2 stack build/bin/dio.o
+__Ltext0 0 0 ABS 0 text0 build/bin/dio.o
+__Ltext1 0 0 ABS 0 text1 build/bin/dio.o
+__Ltext2 0 0 ABS 0 text2 build/bin/dio.o
+__Ltext3 0 0 ABS 0 text3 build/bin/dio.o
+__Ltext4 0 0 ABS 0 text4 build/bin/dio.o
+__Ltext5 0 0 ABS 0 text5 build/bin/dio.o
+__Ltext6 0 0 ABS 0 text6 build/bin/dio.o
+__Ltext7 0 0 ABS 0 text7 build/bin/dio.o
+__Ltext8 0 0 ABS 0 text8 build/bin/dio.o
+__Ltext9 0 0 ABS 0 text9 build/bin/dio.o
+__Hfarbss 0 0 FARRAM 0 farbss build/bin/dio.o
+__Lintcode_body 0 0 ABS 0 intcode_body build/bin/dio.o
+_INTCONbits FF2 0 ABS 0 - build/bin/dio.o
+__Habs1 0 0 ABS 0 abs1 build/bin/dio.o
+__Hdata 0 0 ABS 0 data build/bin/dio.o
+__Hheap 0 0 HEAP 7 heap build/bin/dio.o
+__Hinit 12 0 CODE 0 init build/bin/dio.o
+__Hrbit 0 0 COMRAM 1 rbit build/bin/dio.o
+__Hrbss 0 0 COMRAM 1 rbss build/bin/dio.o
+__Htemp 0 0 COMRAM 1 temp build/bin/dio.o
+__Htext 0 0 ABS 0 text build/bin/dio.o
+__Labs1 0 0 ABS 0 abs1 build/bin/dio.o
+__Ldata 0 0 ABS 0 data build/bin/dio.o
+__Lheap 0 0 HEAP 7 heap build/bin/dio.o
+__Linit E 0 CODE 0 init build/bin/dio.o
+__Lrbit 0 0 COMRAM 1 rbit build/bin/dio.o
+__Lrbss 0 0 COMRAM 1 rbss build/bin/dio.o
+__Ltemp 0 0 COMRAM 1 temp build/bin/dio.o
+__Ltext 0 0 ABS 0 text build/bin/dio.o
+_Button_State 29 0 COMRAM 1 bssCOMRAM build/bin/dio.o
+int$flags 1 0 ABS 0 - build/bin/dio.o
+__HcstackCOMRAM 0 0 ABS 0 cstackCOMRAM build/bin/dio.o
+__Hintret 0 0 ABS 0 intret build/bin/dio.o
+__Hirdata 0 0 CODE 0 irdata build/bin/dio.o
+__S0 D78 0 ABS 0 - build/bin/dio.o
+__S1 4A 0 ABS 0 - build/bin/dio.o
+__S4 0 0 ABS 0 - build/bin/dio.o
+__S5 0 0 ABS 0 - build/bin/dio.o
+_isr 8 0 CODE 0 intcode build/bin/dio.o
+_Button_Update 908 0 CODE 0 text6 build/bin/dio.o
+__Lbigdata 0 0 BIGRAM 1 bigdata build/bin/dio.o
+__Hnvrram 0 0 COMRAM 1 nvrram build/bin/dio.o
+__end_of_timer0_reload D5E 0 CODE 0 text3 build/bin/dio.o
+_Dio_Init 82A 0 CODE 0 text11 build/bin/dio.o
+__end_of_isr CEA 0 CODE 0 intcode_body build/bin/dio.o
+int_func C9C 0 CODE 0 intcode_body build/bin/dio.o
+__end_of_timer0_init D54 0 CODE 0 text2 build/bin/dio.o
+__Lintentry 0 0 ABS 0 intentry build/bin/dio.o
+__Hramtop 800 0 RAM 0 ramtop build/bin/dio.o
+__Hrparam 0 0 COMRAM 1 rparam build/bin/dio.o
+__end_of_Dio_Init 908 0 CODE 0 text11 build/bin/dio.o
+__activetblptr 2 0 ABS 0 - build/bin/dio.o
+__end_of_scheduler_run B36 0 CODE 0 text4 build/bin/dio.o
+_task_count 2D 0 COMRAM 1 bssCOMRAM build/bin/dio.o
+__Hstruct 0 0 COMRAM 1 struct build/bin/dio.o
+__Htext10 0 0 ABS 0 text10 build/bin/dio.o
+__Htext11 0 0 ABS 0 text11 build/bin/dio.o
+__Htext12 0 0 ABS 0 text12 build/bin/dio.o
+__Htext13 0 0 ABS 0 text13 build/bin/dio.o
+__Htext15 0 0 ABS 0 text15 build/bin/dio.o
+__Htext16 0 0 ABS 0 text16 build/bin/dio.o
+_task_list 2 0 COMRAM 1 bssCOMRAM build/bin/dio.o
+__ptext10 D6E 0 CODE 0 text10 build/bin/dio.o
+__ptext11 82A 0 CODE 0 text11 build/bin/dio.o
+__ptext12 BEE 0 CODE 0 text12 build/bin/dio.o
+__ptext13 A5E 0 CODE 0 text13 build/bin/dio.o
+__ptext15 D5E 0 CODE 0 text15 build/bin/dio.o
+__ptext16 9E2 0 CODE 0 text16 build/bin/dio.o
+__pintcode_body C9C 0 CODE 0 intcode_body build/bin/dio.o
+__Lbigbss 0 0 BIGRAM 1 bigbss build/bin/dio.o
+__Lbigram 0 0 ABS 0 bigram build/bin/dio.o
+__Lbigsfr 0 0 ABS 0 bigsfr build/bin/dio.o
+__Lcomram 0 0 ABS 0 comram build/bin/dio.o
+__Lconfig 0 0 CONFIG 4 config build/bin/dio.o
+__end_of_Button_Config 829 0 SMALLCONST 0 smallconst build/bin/dio.o
+__end_of_Dio_ChannelConfig 821 0 SMALLCONST 0 smallconst build/bin/dio.o
+__Lsivt_hi 0 0 CODE 0 sivt_hi build/bin/dio.o
+__Lsivt_lo 18 0 CODE 0 sivt_lo build/bin/dio.o
+_button_task D68 0 CODE 0 text5 build/bin/dio.o
+__Lfarbss 0 0 FARRAM 0 farbss build/bin/dio.o
+___inthi_stack_hi 0 0 STACK 2 stack build/bin/startup.o
+___inthi_stack_lo 0 0 STACK 2 stack build/bin/startup.o
+__Lfardata 0 0 FARRAM 0 fardata build/bin/dio.o
+isa$std 1 0 ABS 0 - build/bin/startup.o
+stackhi 0 0 ABS 0 - build/bin/startup.o
+stacklo 0 0 ABS 0 - build/bin/startup.o
+__Lintcode 8 0 CODE 0 intcode build/bin/dio.o
+__Lintret 0 0 ABS 0 intret build/bin/dio.o
+__Lirdata 0 0 CODE 0 irdata build/bin/dio.o
+__Lspace_0 0 0 ABS 0 - build/bin/dio.o
+__Lspace_1 0 0 ABS 0 - build/bin/dio.o
+__Lspace_2 0 0 ABS 0 - build/bin/dio.o
+__Lspace_4 0 0 ABS 0 - build/bin/dio.o
+__pbssCOMRAM 2 0 COMRAM 1 bssCOMRAM build/bin/dio.o
+__LcstackCOMRAM 0 0 ABS 0 cstackCOMRAM build/bin/dio.o
+end_of_initialization D2C 0 CODE 0 cinit build/bin/dio.o
+__end_ofi2_timer0_reload D68 0 CODE 0 text15 build/bin/dio.o
+__Lnvrram 0 0 COMRAM 1 nvrram build/bin/dio.o
+__Hintentry 0 0 ABS 0 intentry build/bin/dio.o
+__Hreset_vec 4 0 CODE 0 reset_vec build/bin/dio.o
+__end_of_Button_InterpretLevel B94 0 CODE 0 text7 build/bin/dio.o
+Dio_Init@i 3F 0 COMRAM 1 cstackCOMRAM build/bin/dio.o
+Button_InterpretLevel@level 39 0 COMRAM 1 cstackCOMRAM build/bin/dio.o
+__Lramtop 800 0 RAM 0 ramtop build/bin/dio.o
+Button_Update@i 47 0 COMRAM 1 cstackCOMRAM build/bin/dio.o
+__Lrparam 0 0 COMRAM 1 rparam build/bin/dio.o
+__pcinit D20 0 CODE 0 cinit build/bin/dio.o
+__ptext0 CEA 0 CODE 0 text0 build/bin/dio.o
+__ptext1 D74 0 CODE 0 text1 build/bin/dio.o
+__ptext2 D3A 0 CODE 0 text2 build/bin/dio.o
+__ptext3 D54 0 CODE 0 text3 build/bin/dio.o
+__ptext4 ACC 0 CODE 0 text4 build/bin/dio.o
+__ptext5 D68 0 CODE 0 text5 build/bin/dio.o
+__ptext6 908 0 CODE 0 text6 build/bin/dio.o
+__ptext7 B36 0 CODE 0 text7 build/bin/dio.o
+__ptext8 C46 0 CODE 0 text8 build/bin/dio.o
+__ptext9 B94 0 CODE 0 text9 build/bin/dio.o
+__Lstruct 0 0 COMRAM 1 struct build/bin/dio.o
+__Ltext10 0 0 ABS 0 text10 build/bin/dio.o
+__Ltext11 0 0 ABS 0 text11 build/bin/dio.o
+__Ltext12 0 0 ABS 0 text12 build/bin/dio.o
+__Ltext13 0 0 ABS 0 text13 build/bin/dio.o
+__Ltext15 0 0 ABS 0 text15 build/bin/dio.o
+__Ltext16 0 0 ABS 0 text16 build/bin/dio.o
+__ramtop 800 0 RAM 0 ramtop build/bin/startup.o
+__Lpowerup 0 0 CODE 0 powerup build/bin/dio.o
+__Leeprom_data 0 0 EEDATA 0 eeprom_data build/bin/dio.o
+Button_Update@interpretedState 45 0 COMRAM 1 cstackCOMRAM build/bin/dio.o
+__end_of_Button_Update 9E2 0 CODE 0 text6 build/bin/dio.o
+__H__absolute__ 0 0 ABS 0 __absolute__ build/bin/dio.o
+Button_Init@i 43 0 COMRAM 1 cstackCOMRAM build/bin/dio.o
+_Button_InterpretLevel B36 0 CODE 0 text7 build/bin/dio.o
+__psmallconst 800 0 SMALLCONST 0 smallconst build/bin/dio.o
+__Lreset_vec 0 0 CODE 0 reset_vec build/bin/dio.o
+_Dio_ChannelConfig 801 0 SMALLCONST 0 smallconst build/bin/dio.o
+___heap_hi 0 0 ABS 0 - build/bin/startup.o
+___heap_lo 0 0 ABS 0 - build/bin/startup.o
+___param_bank 0 0 ABS 0 - build/bin/dio.o
+___intlo_stack_hi 0 0 STACK 2 stack build/bin/startup.o
+___intlo_stack_lo 0 0 STACK 2 stack build/bin/startup.o
+__Hbigdata 0 0 BIGRAM 1 bigdata build/bin/dio.o
+__end_of__initialization D2C 0 CODE 0 cinit build/bin/dio.o
+__Libigdata 0 0 CODE 0 ibigdata build/bin/dio.o
+i2_timer0_reload D5E 0 CODE 0 text15 build/bin/dio.o
+__Lclrtext 0 0 ABS 0 clrtext build/bin/dio.o
+Dio_ReadChannel@channelId 40 0 COMRAM 1 cstackCOMRAM build/bin/dio.o
+__pcstackCOMRAM 2E 0 COMRAM 1 cstackCOMRAM build/bin/dio.o
+scheduler_run@i 49 0 COMRAM 1 cstackCOMRAM build/bin/dio.o
+__end_of_main D20 0 CODE 0 text0 build/bin/dio.o
+__pintcode 8 0 CODE 0 intcode build/bin/dio.o
+_PORTB F81 0 ABS 0 - build/bin/dio.o
+_PORTC F82 0 ABS 0 - build/bin/dio.o
+_T0CON FD5 0 ABS 0 - build/bin/dio.o
+_TMR0H FD7 0 ABS 0 - build/bin/dio.o
+_TMR0L FD6 0 ABS 0 - build/bin/dio.o
+_TRISB F93 0 ABS 0 - build/bin/dio.o
+_TRISC F94 0 ABS 0 - build/bin/dio.o
+__HRAM 0 0 ABS 0 - build/bin/dio.o
+__Hbss 0 0 RAM 1 bss build/bin/dio.o
+__Hram 0 0 ABS 0 ram build/bin/dio.o
+__Hsfr 0 0 ABS 0 sfr build/bin/dio.o
+__LRAM 1 0 ABS 0 - build/bin/dio.o
+__Lbss 0 0 RAM 1 bss build/bin/dio.o
+__Lram 0 0 ABS 0 ram build/bin/dio.o
+__Lsfr 0 0 ABS 0 sfr build/bin/dio.o
+_scheduler_init C46 0 CODE 0 text8 build/bin/dio.o
+_scheduler_tick 9E2 0 CODE 0 text16 build/bin/dio.o
+Button_Update@currentRaw 46 0 COMRAM 1 cstackCOMRAM build/bin/dio.o
+__Hsivt_hi 0 0 CODE 0 sivt_hi build/bin/dio.o
+__Hsivt_lo 18 0 CODE 0 sivt_lo build/bin/dio.o
+__initialization D20 0 CODE 0 cinit build/bin/dio.o
+btemp0 1 0 ABS 0 - build/bin/dio.o
+btemp1 2 0 ABS 0 - build/bin/dio.o
+__Hfardata 0 0 FARRAM 0 fardata build/bin/dio.o
+__Hsmallconst 82A 0 SMALLCONST 0 smallconst build/bin/dio.o
+scheduler_add_task@task 39 0 COMRAM 1 cstackCOMRAM build/bin/dio.o
+_timer0_start D74 0 CODE 0 text1 build/bin/dio.o
+__Lifardata 0 0 CODE 0 ifardata build/bin/dio.o
+_Button_Init BEE 0 CODE 0 text12 build/bin/dio.o
+scheduler_add_task@period_ms 3B 0 COMRAM 1 cstackCOMRAM build/bin/dio.o
+__Hintsave_regs 0 0 BIGRAM 1 intsave_regs build/bin/dio.o
+__Hintcode E 0 CODE 0 intcode build/bin/dio.o
+# %SPLITSTAB Section
+# This section enumerates all the psect splits performed by the assembler.
+# The beginning of the section is indicated by %SPLITSTAB.
+# Each line is a record a particular split, where the parent psect is on
+# the left and the child on the right.  Note that a child psect is always
+# split form the top of the parent psect. All splits from a given parent
+# are listed in the order in which they occurred.
+%SPLITSTAB
+# %DABS Section
+# This section contains a table of all usuage of the assember
+# directive DABS in the program. Each line has the following format:
+#   <name> <space> <address> <size>
+# If the DABS was originally labelled then that shall be <name>,
+# otherwise name will be "-".  The <space> number is in decimal.
+# <address> and <size> are in byte units as unqaulified hexadecimal
+%DABS
+- 1 1 1
+# %SEGMENTS Section
+# This sections enumerates the segments of the program.  Each segment
+# is described on a single line as follows:
+#    <name> <space> <link address> <file address> <size> <delta>
+# Addresses and size are in unqualified hexadecimal.  The link address
+# and size are in units of delta. The file address is in units of bytes.
+# All other numeric quantities are in decimal.
+%SEGMENTS
+text11 0 82A 82A 54E 1
+reset_vec 0 0 0 4 1
+intcode 0 8 8 A 1
+smallconst 0 800 800 2A 1
+bssCOMRAM 1 2 2 48 1
+# %NOTES Section
+# This section contains data of all the note-psects.  The beginning of the section
+# is indicated by %NOTES. The first line indicates the name and decimal
+# byte-length of the first note-psect, e.g.
+#   $codecov_info_hdr 16
+# Each line that follows contains the byte-data of the psect in hexadecimal as a
+# space-separated list. These lines are limited to 16 bytes of data.
+%NOTES

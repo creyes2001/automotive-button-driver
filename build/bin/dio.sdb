@@ -1,0 +1,348 @@
+[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F4550 ]
+[d frameptr 4065 ]
+"7 /home/reyes/embedded/automotive/button_driver/src/dio.c
+[e E36 . `uc
+DIO_CH_DOOR_SWITCH 0
+DIO_CH_COURTESY_LAMP 1
+DIO_CH_TURN_SIGNAL_LAMP 2
+DIO_CH_HAZARD_LAMP 3
+DIO_CH_MAX 4
+]
+"9
+[e E43 . `uc
+DIO_OUTPUT 0
+DIO_INPUT 1
+]
+"20
+[e E55 . `uc
+DIO_LEVEL_LOW 0
+DIO_LEVEL_HIGH 1
+]
+"6 /home/reyes/embedded/automotive/button_driver/src/dio_cfg.c
+[e E43 . `uc
+DIO_OUTPUT 0
+DIO_INPUT 1
+]
+"6 /home/reyes/embedded/automotive/button_driver/src/button.c
+[e E63 . `uc
+DIO_LEVEL_LOW 0
+DIO_LEVEL_HIGH 1
+]
+"12
+[e E36 . `uc
+BUTTON_RELEASED 0
+BUTTON_PRESSED 1
+]
+"17
+[e E44 . `uc
+DIO_CH_DOOR_SWITCH 0
+DIO_CH_COURTESY_LAMP 1
+DIO_CH_TURN_SIGNAL_LAMP 2
+DIO_CH_HAZARD_LAMP 3
+DIO_CH_MAX 4
+]
+[e E78 . `uc
+BUTTON_ACTIVE_LOW 0
+BUTTON_ACTIVE_HIGH 1
+]
+"32
+[e E73 . `uc
+BUTTON_0 0
+BUTTON_1 1
+BUTTON_MAX 2
+]
+"3 /home/reyes/embedded/automotive/button_driver/src/button_cfg.c
+[e E36 . `uc
+DIO_CH_DOOR_SWITCH 0
+DIO_CH_COURTESY_LAMP 1
+DIO_CH_TURN_SIGNAL_LAMP 2
+DIO_CH_HAZARD_LAMP 3
+DIO_CH_HAZARD_SWITCH 4
+DIO_CH_MAX 5
+]
+[e E71 . `uc
+BUTTON_ACTIVE_LOW 0
+BUTTON_ACTIVE_HIGH 1
+]
+"7 /opt/microchip/xc8/v3.10/pic/sources/c99/common/__lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+"7 /opt/microchip/xc8/v3.10/pic/sources/c99/common/aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+"7 /opt/microchip/xc8/v3.10/pic/sources/c99/common/almod.c
+[v ___almod __almod `(l  1 e 4 0 ]
+"9 /opt/microchip/xc8/v3.10/pic/sources/c99/common/aodiv.c
+[v ___aodiv __aodiv `(o  1 e 8 0 ]
+"9 /opt/microchip/xc8/v3.10/pic/sources/c99/common/aomod.c
+[v ___aomod __aomod `(o  1 e 8 0 ]
+"7 /opt/microchip/xc8/v3.10/pic/sources/c99/common/atdiv.c
+[v ___atdiv __atdiv `(m  1 e 3 0 ]
+"7 /opt/microchip/xc8/v3.10/pic/sources/c99/common/atmod.c
+[v ___atmod __atmod `(m  1 e 3 0 ]
+"7 /opt/microchip/xc8/v3.10/pic/sources/c99/common/awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+"7 /opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+"4 /opt/microchip/xc8/v3.10/pic/sources/c99/common/fleq.c
+[v ___fleq __fleq `(b  1 e 0 0 ]
+"62 /opt/microchip/xc8/v3.10/pic/sources/c99/common/float.c
+[v ___ftpack __ftpack `(f  1 e 4 0 ]
+"86 /opt/microchip/xc8/v3.10/pic/sources/c99/common/ftadd.c
+[v ___ftadd __ftadd `(f  1 e 4 0 ]
+"54 /opt/microchip/xc8/v3.10/pic/sources/c99/common/ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 4 0 ]
+"62 /opt/microchip/xc8/v3.10/pic/sources/c99/common/ftmul.c
+[v ___ftmul __ftmul `(f  1 e 4 0 ]
+"19 /opt/microchip/xc8/v3.10/pic/sources/c99/common/ftsub.c
+[v ___ftsub __ftsub `(f  1 e 4 0 ]
+"7 /opt/microchip/xc8/v3.10/pic/sources/c99/common/llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+"9 /opt/microchip/xc8/v3.10/pic/sources/c99/common/lodiv.c
+[v ___lodiv __lodiv `(uo  1 e 8 0 ]
+"9 /opt/microchip/xc8/v3.10/pic/sources/c99/common/lomod.c
+[v ___lomod __lomod `(uo  1 e 8 0 ]
+"7 /opt/microchip/xc8/v3.10/pic/sources/c99/common/ltdiv.c
+[v ___ltdiv __ltdiv `(um  1 e 3 0 ]
+"7 /opt/microchip/xc8/v3.10/pic/sources/c99/common/ltmod.c
+[v ___ltmod __ltmod `(um  1 e 3 0 ]
+"7 /opt/microchip/xc8/v3.10/pic/sources/c99/common/lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"7 /opt/microchip/xc8/v3.10/pic/sources/c99/common/lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+"10 /opt/microchip/xc8/v3.10/pic/sources/c99/common/sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"245
+[v ___flsub __flsub `(d  1 e 4 0 ]
+"11 /opt/microchip/xc8/v3.10/pic/sources/c99/common/sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 4 0 ]
+"8 /opt/microchip/xc8/v3.10/pic/sources/c99/common/sprcmul.c
+[v ___flmul __flmul `(d  1 e 4 0 ]
+"15 /opt/microchip/xc8/v3.10/pic/sources/c99/common/Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+"15 /opt/microchip/xc8/v3.10/pic/sources/c99/common/Umul24.c
+[v ___tmul __tmul `(um  1 e 3 0 ]
+"15 /opt/microchip/xc8/v3.10/pic/sources/c99/common/Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"91 /opt/microchip/xc8/v3.10/pic/sources/c99/common/Umul64.c
+[v ___omul __omul `(uo  1 e 8 0 ]
+"10 /home/reyes/embedded/automotive/button_driver/main.c
+[v _isr isr `IIH(v  1 e 1 0 ]
+"20
+[v _button_task button_task `(v  1 e 1 0 ]
+"26
+[v _main main `(i  1 e 2 0 ]
+"15 /home/reyes/embedded/automotive/button_driver/src/button.c
+[v _Button_InterpretLevel Button_InterpretLevel `(E36  1 s 1 Button_InterpretLevel ]
+"28
+[v _Button_Init Button_Init `(v  1 e 1 0 ]
+"41
+[v _Button_Update Button_Update `(v  1 e 1 0 ]
+"3 /home/reyes/embedded/automotive/button_driver/src/dio.c
+[v _Dio_Init Dio_Init `(v  1 e 1 0 ]
+"20
+[v _Dio_ReadChannel Dio_ReadChannel `(E55  1 e 1 0 ]
+"4 /home/reyes/embedded/automotive/button_driver/src/interrupts.c
+[v _enable_gi enable_gi `(v  1 e 1 0 ]
+"8 /home/reyes/embedded/automotive/button_driver/src/scheduler.c
+[v _scheduler_init scheduler_init `(v  1 e 1 0 ]
+"21
+[v _scheduler_add_task scheduler_add_task `(v  1 e 1 0 ]
+"33
+[v _scheduler_tick scheduler_tick `(v  1 e 1 0 ]
+"47
+[v _scheduler_run scheduler_run `(v  1 e 1 0 ]
+"6 /home/reyes/embedded/automotive/button_driver/src/timer0.c
+[v _timer0_init timer0_init `(v  1 e 1 0 ]
+"20
+[v _timer0_start timer0_start `(v  1 e 1 0 ]
+"30
+[v _timer0_reload timer0_reload `(v  1 e 1 0 ]
+[v i2_timer0_reload timer0_reload `(v  1 e 1 0 ]
+"2451 /opt/microchip/mplabx/v6.25/packs/Microchip/PIC18Fxxxx_DFP/1.7.171/xc8/pic/include/proc/pic18f4550.h
+[v _PORTB PORTB `VEuc  1 e 1 @3969 ]
+"2561
+[v _PORTC PORTC `VEuc  1 e 1 @3970 ]
+"3071
+[v _LATB LATB `VEuc  1 e 1 @3978 ]
+"3183
+[v _LATC LATC `VEuc  1 e 1 @3979 ]
+"3623
+[v _TRISB TRISB `VEuc  1 e 1 @3987 ]
+"3845
+[v _TRISC TRISC `VEuc  1 e 1 @3988 ]
+"8067
+[v _T0CON T0CON `VEuc  1 e 1 @4053 ]
+[s S278 . 1 `uc 1 T0PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+`uc 1 T08BIT 1 0 :1:6 
+`uc 1 TMR0ON 1 0 :1:7 
+]
+"8087
+[s S285 . 1 `uc 1 T0PS0 1 0 :1:0 
+`uc 1 T0PS1 1 0 :1:1 
+`uc 1 T0PS2 1 0 :1:2 
+]
+[u S289 . 1 `S278 1 . 1 0 `S285 1 . 1 0 ]
+[v _T0CONbits T0CONbits `VES289  1 e 1 @4053 ]
+"8144
+[v _TMR0L TMR0L `VEuc  1 e 1 @4054 ]
+"8151
+[v _TMR0H TMR0H `VEuc  1 e 1 @4055 ]
+[s S24 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INT0IF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INT0IE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 PEIE_GIEL 1 0 :1:6 
+`uc 1 GIE_GIEH 1 0 :1:7 
+]
+"8612
+[s S33 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 INT0F 1 0 :1:1 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 INT0E 1 0 :1:4 
+`uc 1 T0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+[s S42 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 GIEL 1 0 :1:6 
+`uc 1 GIEH 1 0 :1:7 
+]
+[u S46 . 1 `S24 1 . 1 0 `S33 1 . 1 0 `S42 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES46  1 e 1 @4082 ]
+"6 /home/reyes/embedded/automotive/button_driver/src/button.c
+[v _Button_LastRawLevel Button_LastRawLevel `[2]E63  1 s 2 Button_LastRawLevel ]
+"9
+[v _Button_DebounceCounter Button_DebounceCounter `[2]us  1 s 4 Button_DebounceCounter ]
+"12
+[v _Button_State Button_State `[2]E36  1 s 2 Button_State ]
+[s S240 . 4 `E36 1 channelId 1 0 `E71 1 polarity 1 1 `us 1 debounceThreshold 2 2 ]
+"3 /home/reyes/embedded/automotive/button_driver/src/button_cfg.c
+[v _Button_Config Button_Config `C[2]S240  1 e 8 0 ]
+[s S148 . 8 `*.39VEuc 1 tris 2 0 `*.39VEuc 1 port 2 2 `*.39VEuc 1 lat 2 4 `uc 1 pinMask 1 6 `E43 1 direction 1 7 ]
+"6 /home/reyes/embedded/automotive/button_driver/src/dio_cfg.c
+[v _Dio_ChannelConfig Dio_ChannelConfig `C[4]S148  1 e 32 0 ]
+[s S249 . 7 `*.37(v 1 task 2 0 `us 1 period 2 2 `VEus 1 counter 2 4 `VEuc 1 ready 1 6 ]
+"5 /home/reyes/embedded/automotive/button_driver/src/scheduler.c
+[v _task_list task_list `VE[5]S249  1 s 35 task_list ]
+"6
+[v _task_count task_count `uc  1 s 1 task_count ]
+"26 /home/reyes/embedded/automotive/button_driver/main.c
+[v _main main `(i  1 e 2 0 ]
+{
+"45
+} 0
+"20 /home/reyes/embedded/automotive/button_driver/src/timer0.c
+[v _timer0_start timer0_start `(v  1 e 1 0 ]
+{
+"23
+} 0
+"6
+[v _timer0_init timer0_init `(v  1 e 1 0 ]
+{
+"18
+} 0
+"30
+[v _timer0_reload timer0_reload `(v  1 e 1 0 ]
+{
+"34
+} 0
+"47 /home/reyes/embedded/automotive/button_driver/src/scheduler.c
+[v _scheduler_run scheduler_run `(v  1 e 1 0 ]
+{
+"49
+[v scheduler_run@i i `uc  1 a 1 27 ]
+"58
+} 0
+"20 /home/reyes/embedded/automotive/button_driver/main.c
+[v _button_task button_task `(v  1 e 1 0 ]
+{
+"23
+} 0
+"41 /home/reyes/embedded/automotive/button_driver/src/button.c
+[v _Button_Update Button_Update `(v  1 e 1 0 ]
+{
+"43
+[v Button_Update@i i `uc  1 a 1 25 ]
+"44
+[v Button_Update@currentRaw currentRaw `E63  1 a 1 24 ]
+"45
+[v Button_Update@interpretedState interpretedState `E36  1 a 1 23 ]
+"69
+} 0
+"15
+[v _Button_InterpretLevel Button_InterpretLevel `(E36  1 s 1 Button_InterpretLevel ]
+{
+[v Button_InterpretLevel@buttonId buttonId `uc  1 p 1 wreg ]
+[v Button_InterpretLevel@buttonId buttonId `uc  1 p 1 wreg ]
+[v Button_InterpretLevel@level level `E63  1 p 1 11 ]
+"17
+[v Button_InterpretLevel@buttonId buttonId `uc  1 p 1 14 ]
+"25
+} 1
+"8 /home/reyes/embedded/automotive/button_driver/src/scheduler.c
+[v _scheduler_init scheduler_init `(v  1 e 1 0 ]
+{
+"10
+[v scheduler_init@i i `uc  1 a 1 11 ]
+"19
+} 0
+"21
+[v _scheduler_add_task scheduler_add_task `(v  1 e 1 0 ]
+{
+[v scheduler_add_task@task task `*.37(v  1 p 2 11 ]
+[v scheduler_add_task@period_ms period_ms `us  1 p 2 13 ]
+"31
+} 0
+"4 /home/reyes/embedded/automotive/button_driver/src/interrupts.c
+[v _enable_gi enable_gi `(v  1 e 1 0 ]
+{
+"8
+} 0
+"3 /home/reyes/embedded/automotive/button_driver/src/dio.c
+[v _Dio_Init Dio_Init `(v  1 e 1 0 ]
+{
+"5
+[v Dio_Init@i i `uc  1 a 1 17 ]
+"18
+} 0
+"28 /home/reyes/embedded/automotive/button_driver/src/button.c
+[v _Button_Init Button_Init `(v  1 e 1 0 ]
+{
+"30
+[v Button_Init@i i `uc  1 a 1 21 ]
+"39
+} 0
+"20 /home/reyes/embedded/automotive/button_driver/src/dio.c
+[v _Dio_ReadChannel Dio_ReadChannel `(E55  1 e 1 0 ]
+{
+[v Dio_ReadChannel@channelId channelId `E36  1 p 1 wreg ]
+[v Dio_ReadChannel@channelId channelId `E36  1 p 1 wreg ]
+"22
+[v Dio_ReadChannel@channelId channelId `E36  1 p 1 18 ]
+"30
+} 1
+"10 /home/reyes/embedded/automotive/button_driver/main.c
+[v _isr isr `IIH(v  1 e 1 0 ]
+{
+"18
+} 0
+"30 /home/reyes/embedded/automotive/button_driver/src/timer0.c
+[v i2_timer0_reload timer0_reload `(v  1 e 1 0 ]
+{
+"34
+} 0
+"33 /home/reyes/embedded/automotive/button_driver/src/scheduler.c
+[v _scheduler_tick scheduler_tick `(v  1 e 1 0 ]
+{
+"35
+[v scheduler_tick@i i `uc  1 a 1 4 ]
+"45
+} 0

@@ -31,7 +31,7 @@ void Button_Init(void)
 
 	for(i = 0U; i < BUTTON_MAX; i++)
 	{
-		Button_LastRawState[i] = Dio_ReadChannel(Button_Config[i].channelId);
+		Button_LastRawLevel[i] = Dio_ReadChannel(Button_Config[i].channelId);
 		Button_DebounceCounter[i] = 0U;
 		Button_State[i] = BUTTON_RELEASED;
 	}
@@ -42,7 +42,7 @@ void Button_Update(void)
 {
 	uint8_t i;
 	Dio_LevelType currentRaw;
-	Button_State_Type interpretedState;
+	Button_StateType interpretedState;
 
 	for(i = 0U; i < BUTTON_MAX; i++ )
 	{
@@ -50,19 +50,19 @@ void Button_Update(void)
 
 		if(currentRaw == Button_LastRawLevel[i])
 		{
-			if(Button_DebounceCounter[i] < Button_Config[i].debounceTreshold)
+			if(Button_DebounceCounter[i] < Button_Config[i].debounceThreshold)
 			{
 				Button_DebounceCounter[i]++;
 			}
 			else
 			{
-				interpretedState = Button_InterpratState(i,currentRaw);
-				ButtonState[i] = interpretedState;
+				interpretedState = Button_InterpretLevel(i,currentRaw);
+				Button_State[i] = interpretedState;
 			}
 		}
 		else
 		{
-			Button_DebounceCounter = 0U;
+			Button_DebounceCounter[i] = 0U;
 			Button_LastRawLevel[i] = currentRaw;
 		}
 	}

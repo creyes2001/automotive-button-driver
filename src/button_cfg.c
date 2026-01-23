@@ -13,7 +13,7 @@ const Button_ConfigType Button_Config[BUTTON_MAX] =
 	{
 		.channelId = DIO_CH_HAZARD_SWITCH,
 		.polarity = BUTTON_ACTIVE_LOW,
-		.debounceThreshold = 3;
+		.debounceThreshold = 3
 	}
 };
 
