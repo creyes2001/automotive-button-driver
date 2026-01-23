@@ -1487,6 +1487,9 @@ TOSU equ 0FFFh ;#
 	FNCALL	_main,_timer0_start
 	FNCALL	_timer0_init,_timer0_reload
 	FNCALL	_scheduler_run,_button_task
+	FNCALL	_scheduler_run,_test_task
+	FNCALL	_test_task,_Button_GetState
+	FNCALL	_test_task,_Dio_WriteChannel
 	FNCALL	_button_task,_Button_Update
 	FNCALL	_Button_Update,_Button_InterpretLevel
 	FNCALL	_Button_Update,_Dio_ReadChannel
@@ -1549,6 +1552,17 @@ _Dio_ChannelConfig:
 
 	db	low(04h)
 	db	low(0)
+		db	low(3987)
+	db	high(3987)
+
+		db	low(3969)
+	db	high(3969)
+
+		db	low(3978)
+	db	high(3978)
+
+	db	low(02h)
+	db	low(01h)
 	global __end_of_Dio_ChannelConfig
 __end_of_Dio_ChannelConfig:
 	global	_Button_Config
@@ -1669,6 +1683,7 @@ __pcstackCOMRAM:
 ?_timer0_reload:	; 1 bytes @ 0x0
 ?_scheduler_tick:	; 1 bytes @ 0x0
 ?_Button_Update:	; 1 bytes @ 0x0
+?_Button_GetState:	; 1 bytes @ 0x0
 ?_Dio_Init:	; 1 bytes @ 0x0
 ?_Button_Init:	; 1 bytes @ 0x0
 ?_scheduler_init:	; 1 bytes @ 0x0
@@ -1678,6 +1693,7 @@ __pcstackCOMRAM:
 ?_scheduler_run:	; 1 bytes @ 0x0
 ?_isr:	; 1 bytes @ 0x0
 ?_button_task:	; 1 bytes @ 0x0
+?_test_task:	; 1 bytes @ 0x0
 ?_Dio_ReadChannel:	; 1 bytes @ 0x0
 ?i2_timer0_reload:	; 1 bytes @ 0x0
 ?_main:	; 2 bytes @ 0x0
@@ -1689,15 +1705,21 @@ scheduler_tick@i:	; 1 bytes @ 0x4
 	ds   1
 ??_isr:	; 1 bytes @ 0x5
 	ds   6
+?_Dio_WriteChannel:	; 1 bytes @ 0xB
 ?_scheduler_add_task:	; 1 bytes @ 0xB
 ?_Button_InterpretLevel:	; 1 bytes @ 0xB
+	global	Dio_WriteChannel@level
+Dio_WriteChannel@level:	; 1 bytes @ 0xB
 	global	Button_InterpretLevel@level
 Button_InterpretLevel@level:	; 1 bytes @ 0xB
+	global	Button_GetState@buttonId
+Button_GetState@buttonId:	; 1 bytes @ 0xB
 	global	scheduler_init@i
 scheduler_init@i:	; 1 bytes @ 0xB
 	global	scheduler_add_task@task
 scheduler_add_task@task:	; 2 bytes @ 0xB
 ??_timer0_reload:	; 1 bytes @ 0xB
+??_Button_GetState:	; 1 bytes @ 0xB
 ??_Dio_Init:	; 1 bytes @ 0xB
 ??_scheduler_init:	; 1 bytes @ 0xB
 ??_timer0_init:	; 1 bytes @ 0xB
@@ -1705,6 +1727,7 @@ scheduler_add_task@task:	; 2 bytes @ 0xB
 ??_enable_gi:	; 1 bytes @ 0xB
 ??_Dio_ReadChannel:	; 1 bytes @ 0xB
 	ds   1
+??_Dio_WriteChannel:	; 1 bytes @ 0xC
 ??_Button_InterpretLevel:	; 1 bytes @ 0xC
 	ds   1
 	global	scheduler_add_task@period_ms
@@ -1721,9 +1744,13 @@ Dio_Init@i:	; 1 bytes @ 0x11
 	global	Dio_ReadChannel@channelId
 Dio_ReadChannel@channelId:	; 1 bytes @ 0x12
 	ds   1
+	global	Dio_WriteChannel@channelId
+Dio_WriteChannel@channelId:	; 1 bytes @ 0x13
 ??_Button_Update:	; 1 bytes @ 0x13
 ??_Button_Init:	; 1 bytes @ 0x13
-	ds   2
+	ds   1
+??_test_task:	; 1 bytes @ 0x14
+	ds   1
 	global	Button_Init@i
 Button_Init@i:	; 1 bytes @ 0x15
 	ds   2
@@ -1746,7 +1773,7 @@ scheduler_run@i:	; 1 bytes @ 0x1B
 ;!
 ;!Data Sizes:
 ;!    Strings     0
-;!    Constant    40
+;!    Constant    48
 ;!    Data        0
 ;!    BSS         44
 ;!    Persistent  0
@@ -1776,23 +1803,23 @@ scheduler_run@i:	; 1 bytes @ 0x1B
 ;!    Dio_ChannelConfig$tris	PTR volatile unsigned char  size(2) Largest target is 1
 ;!		 -> TRISB(BIGSFR[1]), TRISC(BIGSFR[1]), 
 ;!
-;!    S148$lat	PTR volatile unsigned char  size(2) Largest target is 1
+;!    S178$lat	PTR volatile unsigned char  size(2) Largest target is 1
 ;!		 -> LATB(BIGSFR[1]), LATC(BIGSFR[1]), 
 ;!
-;!    S148$port	PTR volatile unsigned char  size(2) Largest target is 1
+;!    S178$port	PTR volatile unsigned char  size(2) Largest target is 1
 ;!		 -> PORTB(BIGSFR[1]), PORTC(BIGSFR[1]), 
 ;!
-;!    S148$tris	PTR volatile unsigned char  size(2) Largest target is 1
+;!    S178$tris	PTR volatile unsigned char  size(2) Largest target is 1
 ;!		 -> TRISB(BIGSFR[1]), TRISC(BIGSFR[1]), 
 ;!
-;!    S249$task	PTR FTN()void  size(2) Largest target is 1
-;!		 -> button_task(), NULL(), 
+;!    S277$task	PTR FTN()void  size(2) Largest target is 1
+;!		 -> button_task(), test_task(), NULL(), 
 ;!
 ;!    scheduler_add_task@task	PTR FTN()void  size(2) Largest target is 1
-;!		 -> button_task(), 
+;!		 -> button_task(), test_task(), 
 ;!
 ;!    task_list$task	PTR FTN()void  size(2) Largest target is 1
-;!		 -> button_task(), NULL(), 
+;!		 -> button_task(), test_task(), NULL(), 
 ;!
 
 
@@ -1800,6 +1827,7 @@ scheduler_run@i:	; 1 bytes @ 0x1B
 ;!Critical Paths under _main in COMRAM
 ;!
 ;!    _main->_scheduler_run
+;!    _test_task->_Dio_WriteChannel
 ;!    _button_task->_Button_Update
 ;!    _Button_Update->_Dio_ReadChannel
 ;!    _Button_Init->_Dio_ReadChannel
@@ -1882,7 +1910,7 @@ scheduler_run@i:	; 1 bytes @ 0x1B
 ;! ---------------------------------------------------------------------------------
 ;! (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
 ;! ---------------------------------------------------------------------------------
-;! (0) _main                                                 0     0      0     889
+;! (0) _main                                                 0     0      0    1046
 ;!                        _Button_Init
 ;!                           _Dio_Init
 ;!                          _enable_gi
@@ -1899,10 +1927,21 @@ scheduler_run@i:	; 1 bytes @ 0x1B
 ;! ---------------------------------------------------------------------------------
 ;! (2) _timer0_reload                                        0     0      0       0
 ;! ---------------------------------------------------------------------------------
-;! (1) _scheduler_run                                        2     2      0     528
+;! (1) _scheduler_run                                        2     2      0     683
 ;!                                             26 COMRAM     2     2      0
 ;!                                NULL *
 ;!                        _button_task *
+;!                          _test_task *
+;! ---------------------------------------------------------------------------------
+;! (2) _test_task                                            0     0      0     155
+;!                    _Button_GetState
+;!                   _Dio_WriteChannel
+;! ---------------------------------------------------------------------------------
+;! (3) _Dio_WriteChannel                                     9     8      1     140
+;!                                             11 COMRAM     9     8      1
+;! ---------------------------------------------------------------------------------
+;! (3) _Button_GetState                                      1     1      0      15
+;!                                             11 COMRAM     1     1      0
 ;! ---------------------------------------------------------------------------------
 ;! (2) _button_task                                          0     0      0     438
 ;!                      _Button_Update
@@ -1920,7 +1959,7 @@ scheduler_run@i:	; 1 bytes @ 0x1B
 ;! (1) _scheduler_init                                       1     1      0      90
 ;!                                             11 COMRAM     1     1      0
 ;! ---------------------------------------------------------------------------------
-;! (1) _scheduler_add_task                                   4     0      4      46
+;! (1) _scheduler_add_task                                   4     0      4      48
 ;!                                             11 COMRAM     4     0      4
 ;! ---------------------------------------------------------------------------------
 ;! (1) _enable_gi                                            0     0      0       0
@@ -1967,6 +2006,9 @@ scheduler_run@i:	; 1 bytes @ 0x1B
 ;!       _Button_Update
 ;!         _Button_InterpretLevel
 ;!         _Dio_ReadChannel
+;!     _test_task *
+;!       _Button_GetState
+;!       _Dio_WriteChannel
 ;!   _timer0_init
 ;!     _timer0_reload
 ;!   _timer0_start
@@ -2008,13 +2050,13 @@ scheduler_run@i:	; 1 bytes @ 0x1B
 
 ;; *************** function _main *****************
 ;; Defined at:
-;;		line 26 in file "main.c"
+;;		line 38 in file "main.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
 ;;		None
 ;; Return value:  Size  Location     Type
-;;                  2   37[None  ] int 
+;;                  2   46[None  ] int 
 ;; Registers used:
 ;;		wreg, fsr2l, fsr2h, status,2, status,0, pcl, pclath, pclatu, tosl, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
 ;; Tracked objects:
@@ -2043,41 +2085,41 @@ scheduler_run@i:	; 1 bytes @ 0x1B
 ;;
 psect	text0,class=CODE,space=0,reloc=2,group=0
 	file	"main.c"
-	line	26
+	line	38
 global __ptext0
 __ptext0:
 psect	text0
 	file	"main.c"
-	line	26
+	line	38
 	
 _main:
 ;incstack = 0
 	callstack 25
-	line	28
+	line	40
 	
-l1189:
+l1220:
 	call	_Dio_Init	;wreg free
-	line	29
+	line	41
 	call	_Button_Init	;wreg free
-	line	30
+	line	42
 	
-l1191:
+l1222:
 	call	_scheduler_init	;wreg free
-	line	31
+	line	43
 	
-l1193:
+l1224:
 	call	_timer0_init	;wreg free
-	line	32
+	line	44
 	
-l1195:
+l1226:
 	call	_timer0_start	;wreg free
-	line	34
+	line	46
 	
-l1197:
+l1228:
 	call	_enable_gi	;wreg free
-	line	37
+	line	49
 	
-l1199:
+l1230:
 		movlw	low(_button_task)
 	movwf	((c:scheduler_add_task@task))^00h,c
 	movlw	high(_button_task)
@@ -2087,15 +2129,27 @@ l1199:
 	movlw	low(0Ah)
 	movwf	((c:scheduler_add_task@period_ms))^00h,c
 	call	_scheduler_add_task	;wreg free
-	line	41
+	line	50
 	
-l1201:
+l1232:
+		movlw	low(_test_task)
+	movwf	((c:scheduler_add_task@task))^00h,c
+	movlw	high(_test_task)
+	movwf	((c:scheduler_add_task@task+1))^00h,c
+
+	clrf	((c:scheduler_add_task@period_ms+1))^00h,c
+	movlw	low(05h)
+	movwf	((c:scheduler_add_task@period_ms))^00h,c
+	call	_scheduler_add_task	;wreg free
+	line	54
+	
+l1234:
 	call	_scheduler_run	;wreg free
-	goto	l1201
+	goto	l1234
 	global	start
 	goto	start
 	callstack 0
-	line	45
+	line	58
 GLOBAL	__end_of_main
 	__end_of_main:
 	signat	_main,90
@@ -2144,11 +2198,11 @@ _timer0_start:
 	callstack 28
 	line	22
 	
-l1073:
+l1098:
 	bsf	((c:4053))^0f00h,c,7	;volatile
 	line	23
 	
-l153:
+l162:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_timer0_start
@@ -2198,7 +2252,7 @@ _timer0_init:
 	callstack 27
 	line	8
 	
-l1063:
+l1088:
 	clrf	((c:4053))^0f00h,c	;volatile
 	line	9
 	bcf	((c:4053))^0f00h,c,6	;volatile
@@ -2208,26 +2262,26 @@ l1063:
 	bcf	((c:4053))^0f00h,c,3	;volatile
 	line	12
 	
-l1065:
+l1090:
 	movf	((c:4053))^0f00h,c,w	;volatile
 	andlw	not (((1<<3)-1)<<0)
 	iorlw	(01h & ((1<<3)-1))<<0
 	movwf	((c:4053))^0f00h,c	;volatile
 	line	14
 	
-l1067:
+l1092:
 	call	_timer0_reload	;wreg free
 	line	16
 	
-l1069:
+l1094:
 	bcf	((c:4082))^0f00h,c,2	;volatile
 	line	17
 	
-l1071:
+l1096:
 	bsf	((c:4082))^0f00h,c,5	;volatile
 	line	18
 	
-l150:
+l159:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_timer0_init
@@ -2277,7 +2331,7 @@ _timer0_reload:
 	callstack 27
 	line	32
 	
-l1003:
+l1022:
 	movlw	low(0FBh)
 	movwf	((c:4055))^0f00h,c	;volatile
 	line	33
@@ -2285,7 +2339,7 @@ l1003:
 	movwf	((c:4054))^0f00h,c	;volatile
 	line	34
 	
-l159:
+l168:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_timer0_reload
@@ -2319,6 +2373,7 @@ GLOBAL	__end_of_timer0_reload
 ;; This function calls:
 ;;		NULL
 ;;		_button_task
+;;		_test_task
 ;; This function is called by:
 ;;		_main
 ;; This function uses a non-reentrant model
@@ -2337,12 +2392,12 @@ _scheduler_run:
 	callstack 25
 	line	50
 	
-l1177:
+l1208:
 	clrf	((c:scheduler_run@i))^00h,c
-	goto	l1187
+	goto	l1218
 	line	52
 	
-l1179:
+l1210:
 	movf	((c:scheduler_run@i))^00h,c,w
 	mullw	07h
 	movf	(prodl)^0f00h,c,w
@@ -2351,15 +2406,15 @@ l1179:
 	clrf	fsr2h
 	decf	postinc2,w
 	btfss	status,2
-	goto	u311
-	goto	u310
+	goto	u341
+	goto	u340
 
-u311:
-	goto	l1185
-u310:
+u341:
+	goto	l1216
+u340:
 	line	54
 	
-l1181:
+l1212:
 	movf	((c:scheduler_run@i))^00h,c,w
 	mullw	07h
 	movf	(prodl)^0f00h,c,w
@@ -2369,16 +2424,16 @@ l1181:
 	clrf	indf2
 	line	55
 	
-l1183:
+l1214:
 	movf	((c:scheduler_run@i))^00h,c,w
 	mullw	07h
 	movf	(prodl)^0f00h,c,w
 	addlw	low(_task_list)
 	movwf	fsr2l
 	clrf	fsr2h
-	call	u328
-	goto	u329
-u328:
+	call	u358
+	goto	u359
+u358:
 	push
 	movwf	pclath
 	movf	postinc2,w
@@ -2389,30 +2444,31 @@ u328:
 	movf	pclath,w
 	
 	return	;indir
-	u329:
+	u359:
 	line	57
 	
-l1185:
+l1216:
 	incf	((c:scheduler_run@i))^00h,c
 	
-l1187:
+l1218:
 		movf	((c:_task_count))^00h,c,w
 	subwf	((c:scheduler_run@i))^00h,c,w
 	btfss	status,0
-	goto	u331
-	goto	u330
+	goto	u361
+	goto	u360
 
-u331:
-	goto	l1179
-u330:
+u361:
+	goto	l1210
+u360:
 	line	58
 	
-l135:
+l144:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_scheduler_run
 	__end_of_scheduler_run:
 	signat	_scheduler_run,89
+	global	_test_task
 	global	_button_task
 
 ;; *************** function _button_task *****************
@@ -2459,16 +2515,342 @@ _button_task:
 	callstack 25
 	line	22
 	
-l1169:
+l1194:
 	call	_Button_Update	;wreg free
 	line	23
 	
-l33:
+l37:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_button_task
 	__end_of_button_task:
 	signat	_button_task,89
+
+;; *************** function _test_task *****************
+;; Defined at:
+;;		line 25 in file "main.c"
+;; Parameters:    Size  Location     Type
+;;		None
+;; Auto vars:     Size  Location     Type
+;;		None
+;; Return value:  Size  Location     Type
+;;                  1    wreg      void 
+;; Registers used:
+;;		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+;; Tracked objects:
+;;		On entry : 0/0
+;;		On exit  : 0/0
+;;		Unchanged: 0/0
+;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+;;      Params:         0       0       0       0       0       0       0       0       0
+;;      Locals:         0       0       0       0       0       0       0       0       0
+;;      Temps:          0       0       0       0       0       0       0       0       0
+;;      Totals:         0       0       0       0       0       0       0       0       0
+;;Total ram usage:        0 bytes
+;; Hardware stack levels used: 1
+;; Hardware stack levels required when called: 3
+;; This function calls:
+;;		_Button_GetState
+;;		_Dio_WriteChannel
+;; This function is called by:
+;;		_main
+;;		_scheduler_run
+;; This function uses a non-reentrant model
+;;
+psect	text6,class=CODE,space=0,reloc=2,group=0
+	line	25
+global __ptext6
+__ptext6:
+psect	text6
+	file	"main.c"
+	line	25
+	
+_test_task:
+;incstack = 0
+	callstack 26
+	line	27
+	
+l1196:
+	movlw	(0)&0ffh
+	
+	call	_Button_GetState
+	decf	wreg
+	btfss	status,2
+	goto	u321
+	goto	u320
+u321:
+	goto	l1200
+u320:
+	line	29
+	
+l1198:
+	movlw	low(01h)
+	movwf	((c:Dio_WriteChannel@level))^00h,c
+	movlw	(01h)&0ffh
+	
+	call	_Dio_WriteChannel
+	line	30
+	goto	l42
+	line	33
+	
+l1200:
+	movlw	low(0)
+	movwf	((c:Dio_WriteChannel@level))^00h,c
+	movlw	(01h)&0ffh
+	
+	call	_Dio_WriteChannel
+	line	36
+	
+l42:
+	return	;funcret
+	callstack 0
+GLOBAL	__end_of_test_task
+	__end_of_test_task:
+	signat	_test_task,89
+	global	_Dio_WriteChannel
+
+;; *************** function _Dio_WriteChannel *****************
+;; Defined at:
+;;		line 32 in file "src/dio.c"
+;; Parameters:    Size  Location     Type
+;;  channelId       1    wreg     enum E36
+;;  level           1   11[COMRAM] enum E56
+;; Auto vars:     Size  Location     Type
+;;  channelId       1   19[COMRAM] enum E36
+;; Return value:  Size  Location     Type
+;;                  1    wreg      void 
+;; Registers used:
+;;		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh
+;; Tracked objects:
+;;		On entry : 0/0
+;;		On exit  : 0/0
+;;		Unchanged: 0/0
+;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+;;      Params:         1       0       0       0       0       0       0       0       0
+;;      Locals:         1       0       0       0       0       0       0       0       0
+;;      Temps:          7       0       0       0       0       0       0       0       0
+;;      Totals:         9       0       0       0       0       0       0       0       0
+;;Total ram usage:        9 bytes
+;; Hardware stack levels used: 1
+;; Hardware stack levels required when called: 2
+;; This function calls:
+;;		Nothing
+;; This function is called by:
+;;		_test_task
+;; This function uses a non-reentrant model
+;;
+psect	text7,class=CODE,space=0,reloc=2,group=0
+	file	"src/dio.c"
+	line	32
+global __ptext7
+__ptext7:
+psect	text7
+	file	"src/dio.c"
+	line	32
+	
+_Dio_WriteChannel:
+;incstack = 0
+	callstack 26
+	movwf	((c:Dio_WriteChannel@channelId))^00h,c
+	line	34
+	
+l1188:
+		decf	((c:Dio_WriteChannel@level))^00h,c,w
+	btfss	status,2
+	goto	u311
+	goto	u310
+
+u311:
+	goto	l1192
+u310:
+	line	36
+	
+l1190:
+	movf	((c:Dio_WriteChannel@channelId))^00h,c,w
+	mullw	08h
+	movff	prodl,??_Dio_WriteChannel+0
+	movlw	06h
+	addwf	(??_Dio_WriteChannel+0)^00h,c
+	movf	(??_Dio_WriteChannel+0)^00h,c,w
+	addlw	low(_Dio_ChannelConfig)
+	movwf	(??_Dio_WriteChannel+1)^00h,c
+	movff	(??_Dio_WriteChannel+1),tblptrl
+	if	1	;There is more than 1 active tblptr byte
+	global __smallconst
+movlw	high(__smallconst)
+	movwf	tblptrh
+	endif
+	if	0	;tblptru may be non-zero
+	clrf	tblptru
+	endif
+	if	0	;tblptru may be non-zero
+	movlw	low highword(__smallconst)
+	movwf	tblptru
+	endif
+	tblrd	*
+	
+	movff	tablat,??_Dio_WriteChannel+2
+	movf	((c:Dio_WriteChannel@channelId))^00h,c,w
+	mullw	08h
+	movff	prodl,??_Dio_WriteChannel+3
+	movlw	04h
+	addwf	(??_Dio_WriteChannel+3)^00h,c
+	movf	(??_Dio_WriteChannel+3)^00h,c,w
+	addlw	low(_Dio_ChannelConfig)
+	movwf	(??_Dio_WriteChannel+4)^00h,c
+	movff	(??_Dio_WriteChannel+4),tblptrl
+	if	1	;There is more than 1 active tblptr byte
+	global __smallconst
+movlw	high(__smallconst)
+	movwf	tblptrh
+	endif
+	if	0	;tblptru may be non-zero
+	clrf	tblptru
+	endif
+	if	0	;tblptru may be non-zero
+	movlw	low highword(__smallconst)
+	movwf	tblptru
+	endif
+	tblrd	*+
+	
+	movff	tablat,??_Dio_WriteChannel+5
+	tblrd	*+
+	
+	movff	tablat,??_Dio_WriteChannel+5+1
+	movff	??_Dio_WriteChannel+5,fsr2l
+	movff	??_Dio_WriteChannel+5+1,fsr2h
+	movf	(??_Dio_WriteChannel+2)^00h,c,w
+	iorwf	indf2
+	line	37
+	goto	l69
+	line	40
+	
+l1192:
+	movf	((c:Dio_WriteChannel@channelId))^00h,c,w
+	mullw	08h
+	movff	prodl,??_Dio_WriteChannel+0
+	movlw	06h
+	addwf	(??_Dio_WriteChannel+0)^00h,c
+	movf	(??_Dio_WriteChannel+0)^00h,c,w
+	addlw	low(_Dio_ChannelConfig)
+	movwf	(??_Dio_WriteChannel+1)^00h,c
+	movff	(??_Dio_WriteChannel+1),tblptrl
+	if	1	;There is more than 1 active tblptr byte
+	global __smallconst
+movlw	high(__smallconst)
+	movwf	tblptrh
+	endif
+	if	0	;tblptru may be non-zero
+	clrf	tblptru
+	endif
+	if	0	;tblptru may be non-zero
+	movlw	low highword(__smallconst)
+	movwf	tblptru
+	endif
+	tblrd	*
+	
+	movf	tablat,w
+	xorlw	0ffh
+	movwf	(??_Dio_WriteChannel+2)^00h,c
+	movf	((c:Dio_WriteChannel@channelId))^00h,c,w
+	mullw	08h
+	movff	prodl,??_Dio_WriteChannel+3
+	movlw	04h
+	addwf	(??_Dio_WriteChannel+3)^00h,c
+	movf	(??_Dio_WriteChannel+3)^00h,c,w
+	addlw	low(_Dio_ChannelConfig)
+	movwf	(??_Dio_WriteChannel+4)^00h,c
+	movff	(??_Dio_WriteChannel+4),tblptrl
+	if	1	;There is more than 1 active tblptr byte
+	global __smallconst
+movlw	high(__smallconst)
+	movwf	tblptrh
+	endif
+	if	0	;tblptru may be non-zero
+	clrf	tblptru
+	endif
+	if	0	;tblptru may be non-zero
+	movlw	low highword(__smallconst)
+	movwf	tblptru
+	endif
+	tblrd	*+
+	
+	movff	tablat,??_Dio_WriteChannel+5
+	tblrd	*+
+	
+	movff	tablat,??_Dio_WriteChannel+5+1
+	movff	??_Dio_WriteChannel+5,fsr2l
+	movff	??_Dio_WriteChannel+5+1,fsr2h
+	movf	((??_Dio_WriteChannel+2))^00h,c,w
+	andwf	indf2
+	line	42
+	
+l69:
+	return	;funcret
+	callstack 0
+GLOBAL	__end_of_Dio_WriteChannel
+	__end_of_Dio_WriteChannel:
+	signat	_Dio_WriteChannel,8313
+	global	_Button_GetState
+
+;; *************** function _Button_GetState *****************
+;; Defined at:
+;;		line 71 in file "src/button.c"
+;; Parameters:    Size  Location     Type
+;;  buttonId        1    wreg     unsigned char 
+;; Auto vars:     Size  Location     Type
+;;  buttonId        1   11[COMRAM] unsigned char 
+;; Return value:  Size  Location     Type
+;;                  1    wreg      enum E3366
+;; Registers used:
+;;		wreg, fsr2l, fsr2h, status,2, status,0
+;; Tracked objects:
+;;		On entry : 0/0
+;;		On exit  : 0/0
+;;		Unchanged: 0/0
+;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+;;      Params:         0       0       0       0       0       0       0       0       0
+;;      Locals:         1       0       0       0       0       0       0       0       0
+;;      Temps:          0       0       0       0       0       0       0       0       0
+;;      Totals:         1       0       0       0       0       0       0       0       0
+;;Total ram usage:        1 bytes
+;; Hardware stack levels used: 1
+;; Hardware stack levels required when called: 2
+;; This function calls:
+;;		Nothing
+;; This function is called by:
+;;		_test_task
+;; This function uses a non-reentrant model
+;;
+psect	text8,class=CODE,space=0,reloc=2,group=0
+	file	"src/button.c"
+	line	71
+global __ptext8
+__ptext8:
+psect	text8
+	file	"src/button.c"
+	line	71
+	
+_Button_GetState:
+;incstack = 0
+	callstack 26
+	movwf	((c:Button_GetState@buttonId))^00h,c
+	line	73
+	
+l1012:
+	movf	((c:Button_GetState@buttonId))^00h,c,w
+	addlw	low(_Button_State)
+	movwf	fsr2l
+	clrf	fsr2h
+	movf	indf2,w
+	line	74
+	
+l115:
+	return	;funcret
+	callstack 0
+GLOBAL	__end_of_Button_GetState
+	__end_of_Button_GetState:
+	signat	_Button_GetState,4217
 	global	_Button_Update
 
 ;; *************** function _Button_Update *****************
@@ -2478,7 +2860,7 @@ GLOBAL	__end_of_button_task
 ;;		None
 ;; Auto vars:     Size  Location     Type
 ;;  i               1   25[COMRAM] unsigned char 
-;;  currentRaw      1   24[COMRAM] enum E63
+;;  currentRaw      1   24[COMRAM] enum E64
 ;;  interpretedS    1   23[COMRAM] enum E36
 ;; Return value:  Size  Location     Type
 ;;                  1    wreg      void 
@@ -2503,12 +2885,11 @@ GLOBAL	__end_of_button_task
 ;;		_button_task
 ;; This function uses a non-reentrant model
 ;;
-psect	text6,class=CODE,space=0,reloc=2,group=0
-	file	"src/button.c"
+psect	text9,class=CODE,space=0,reloc=2,group=0
 	line	41
-global __ptext6
-__ptext6:
-psect	text6
+global __ptext9
+__ptext9:
+psect	text9
 	file	"src/button.c"
 	line	41
 	
@@ -2517,11 +2898,11 @@ _Button_Update:
 	callstack 25
 	line	47
 	
-l1143:
+l1162:
 	clrf	((c:Button_Update@i))^00h,c
 	line	49
 	
-l1149:
+l1168:
 	movf	((c:Button_Update@i))^00h,c,w
 	mullw	04h
 	movf	(prodl)^0f00h,c,w
@@ -2548,7 +2929,7 @@ movlw	high(__smallconst)
 	movwf	((c:Button_Update@currentRaw))^00h,c
 	line	51
 	
-l1151:
+l1170:
 	movf	((c:Button_Update@i))^00h,c,w
 	addlw	low(_Button_LastRawLevel)
 	movwf	fsr2l
@@ -2556,15 +2937,15 @@ l1151:
 	movf	((c:Button_Update@currentRaw))^00h,c,w
 xorwf	postinc2,w
 	btfss	status,2
-	goto	u271
-	goto	u270
+	goto	u281
+	goto	u280
 
-u271:
-	goto	l1161
-u270:
+u281:
+	goto	l1180
+u280:
 	line	53
 	
-l1153:
+l1172:
 	movf	((c:Button_Update@i))^00h,c,w
 	mullw	04h
 	movff	prodl,??_Button_Update+0
@@ -2599,15 +2980,15 @@ movlw	high(__smallconst)
 	movf	tablat,w
 	subwfb	postinc2,w
 	btfsc	status,0
-	goto	u281
-	goto	u280
+	goto	u291
+	goto	u290
 
-u281:
-	goto	l1157
-u280:
+u291:
+	goto	l1176
+u290:
 	line	55
 	
-l1155:
+l1174:
 	movf	((c:Button_Update@i))^00h,c,w
 	mullw	02h
 	movf	(prodl)^0f00h,c,w
@@ -2618,10 +2999,10 @@ l1155:
 	movlw	0
 	addwfc	postdec2
 	line	56
-	goto	l1165
+	goto	l1184
 	line	59
 	
-l1157:
+l1176:
 	movff	(c:Button_Update@currentRaw),(c:Button_InterpretLevel@level)
 	movf	((c:Button_Update@i))^00h,c,w
 	
@@ -2629,17 +3010,17 @@ l1157:
 	movwf	((c:Button_Update@interpretedState))^00h,c
 	line	60
 	
-l1159:
+l1178:
 	movf	((c:Button_Update@i))^00h,c,w
 	addlw	low(_Button_State)
 	movwf	fsr2l
 	clrf	fsr2h
 	movff	(c:Button_Update@interpretedState),indf2
 
-	goto	l1165
+	goto	l1184
 	line	65
 	
-l1161:
+l1180:
 	movf	((c:Button_Update@i))^00h,c,w
 	mullw	02h
 	movf	(prodl)^0f00h,c,w
@@ -2650,7 +3031,7 @@ l1161:
 	clrf	postdec2
 	line	66
 	
-l1163:
+l1182:
 	movf	((c:Button_Update@i))^00h,c,w
 	addlw	low(_Button_LastRawLevel)
 	movwf	fsr2l
@@ -2659,21 +3040,21 @@ l1163:
 
 	line	68
 	
-l1165:
+l1184:
 	incf	((c:Button_Update@i))^00h,c
 	
-l1167:
+l1186:
 		movlw	02h-1
 	cpfsgt	((c:Button_Update@i))^00h,c
-	goto	u291
-	goto	u290
+	goto	u301
+	goto	u300
 
-u291:
-	goto	l1149
-u290:
+u301:
+	goto	l1168
+u300:
 	line	69
 	
-l103:
+l112:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_Button_Update
@@ -2686,7 +3067,7 @@ GLOBAL	__end_of_Button_Update
 ;;		line 15 in file "src/button.c"
 ;; Parameters:    Size  Location     Type
 ;;  buttonId        1    wreg     unsigned char 
-;;  level           1   11[COMRAM] enum E63
+;;  level           1   11[COMRAM] enum E64
 ;; Auto vars:     Size  Location     Type
 ;;  buttonId        1   14[COMRAM] unsigned char 
 ;; Return value:  Size  Location     Type
@@ -2711,11 +3092,11 @@ GLOBAL	__end_of_Button_Update
 ;;		_Button_Update
 ;; This function uses a non-reentrant model
 ;;
-psect	text7,class=CODE,space=0,reloc=2,group=0
+psect	text10,class=CODE,space=0,reloc=2,group=0
 	line	15
-global __ptext7
-__ptext7:
-psect	text7
+global __ptext10
+__ptext10:
+psect	text10
 	file	"src/button.c"
 	line	15
 	
@@ -2725,7 +3106,7 @@ _Button_InterpretLevel:
 	movwf	((c:Button_InterpretLevel@buttonId))^00h,c
 	line	17
 	
-l1131:
+l1150:
 	movf	((c:Button_InterpretLevel@buttonId))^00h,c,w
 	mullw	04h
 	movff	prodl,??_Button_InterpretLevel+0
@@ -2752,42 +3133,42 @@ movlw	high(__smallconst)
 	movf	tablat,w
 	decf	wreg
 	btfss	status,2
-	goto	u221
-	goto	u220
-u221:
-	goto	l1139
-u220:
-	line	19
-	
-l1133:
-		decf	((c:Button_InterpretLevel@level))^00h,c,w
-	btfsc	status,2
 	goto	u231
 	goto	u230
-
 u231:
-	movlw	1
-	goto	u240
+	goto	l1158
 u230:
-	movlw	0
+	line	19
+	
+l1152:
+		decf	((c:Button_InterpretLevel@level))^00h,c,w
+	btfsc	status,2
+	goto	u241
+	goto	u240
+
+u241:
+	movlw	1
+	goto	u250
 u240:
-	goto	l88
+	movlw	0
+u250:
+	goto	l97
 	line	23
 	
-l1139:
+l1158:
 	movf	((c:Button_InterpretLevel@level))^00h,c,w
 	btfsc	status,2
-	goto	u251
-	goto	u250
-u251:
-	movlw	1
+	goto	u261
 	goto	u260
-u250:
-	movlw	0
+u261:
+	movlw	1
+	goto	u270
 u260:
+	movlw	0
+u270:
 	line	25
 	
-l88:
+l97:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_Button_InterpretLevel
@@ -2824,12 +3205,12 @@ GLOBAL	__end_of_Button_InterpretLevel
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text8,class=CODE,space=0,reloc=2,group=0
+psect	text11,class=CODE,space=0,reloc=2,group=0
 	file	"src/scheduler.c"
 	line	8
-global __ptext8
-__ptext8:
-psect	text8
+global __ptext11
+__ptext11:
+psect	text11
 	file	"src/scheduler.c"
 	line	8
 	
@@ -2838,11 +3219,11 @@ _scheduler_init:
 	callstack 28
 	line	11
 	
-l1051:
+l1076:
 	clrf	((c:scheduler_init@i))^00h,c
 	line	13
 	
-l1057:
+l1082:
 	movf	((c:scheduler_init@i))^00h,c,w
 	mullw	07h
 	movf	(prodl)^0f00h,c,w
@@ -2879,25 +3260,25 @@ l1057:
 	clrf	indf2
 	line	17
 	
-l1059:
+l1084:
 	incf	((c:scheduler_init@i))^00h,c
 	
-l1061:
+l1086:
 		movlw	05h-1
 	cpfsgt	((c:scheduler_init@i))^00h,c
-	goto	u151
-	goto	u150
+	goto	u171
+	goto	u170
 
-u151:
-	goto	l1057
-u150:
+u171:
+	goto	l1082
+u170:
 	
-l116:
+l125:
 	line	18
 	clrf	((c:_task_count))^00h,c
 	line	19
 	
-l117:
+l126:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_scheduler_init
@@ -2910,7 +3291,7 @@ GLOBAL	__end_of_scheduler_init
 ;;		line 21 in file "src/scheduler.c"
 ;; Parameters:    Size  Location     Type
 ;;  task            2   11[COMRAM] PTR FTN()void 
-;;		 -> button_task(1), 
+;;		 -> test_task(1), button_task(1), 
 ;;  period_ms       2   13[COMRAM] unsigned short 
 ;; Auto vars:     Size  Location     Type
 ;;		None
@@ -2936,11 +3317,11 @@ GLOBAL	__end_of_scheduler_init
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text9,class=CODE,space=0,reloc=2,group=0
+psect	text12,class=CODE,space=0,reloc=2,group=0
 	line	21
-global __ptext9
-__ptext9:
-psect	text9
+global __ptext12
+__ptext12:
+psect	text12
 	file	"src/scheduler.c"
 	line	21
 	
@@ -2949,18 +3330,18 @@ _scheduler_add_task:
 	callstack 28
 	line	23
 	
-l1171:
+l1202:
 		movlw	05h-0
 	cpfslt	((c:_task_count))^00h,c
-	goto	u301
-	goto	u300
+	goto	u331
+	goto	u330
 
-u301:
-	goto	l1175
-u300:
+u331:
+	goto	l1206
+u330:
 	line	25
 	
-l1173:
+l1204:
 	movf	((c:_task_count))^00h,c,w
 	mullw	07h
 	movf	(prodl)^0f00h,c,w
@@ -2997,11 +3378,11 @@ l1173:
 	clrf	indf2
 	line	30
 	
-l1175:
+l1206:
 	incf	((c:_task_count))^00h,c
 	line	31
 	
-l121:
+l130:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_scheduler_add_task
@@ -3038,12 +3419,12 @@ GLOBAL	__end_of_scheduler_add_task
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text10,class=CODE,space=0,reloc=2,group=0
+psect	text13,class=CODE,space=0,reloc=2,group=0
 	file	"src/interrupts.c"
 	line	4
-global __ptext10
-__ptext10:
-psect	text10
+global __ptext13
+__ptext13:
+psect	text13
 	file	"src/interrupts.c"
 	line	4
 	
@@ -3052,13 +3433,13 @@ _enable_gi:
 	callstack 28
 	line	6
 	
-l1075:
+l1100:
 	bsf	((c:4082))^0f00h,c,7	;volatile
 	line	7
 	bsf	((c:4082))^0f00h,c,6	;volatile
 	line	8
 	
-l164:
+l173:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_enable_gi
@@ -3095,12 +3476,12 @@ GLOBAL	__end_of_enable_gi
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text11,class=CODE,space=0,reloc=2,group=0
+psect	text14,class=CODE,space=0,reloc=2,group=0
 	file	"src/dio.c"
 	line	3
-global __ptext11
-__ptext11:
-psect	text11
+global __ptext14
+__ptext14:
+psect	text14
 	file	"src/dio.c"
 	line	3
 	
@@ -3109,11 +3490,11 @@ _Dio_Init:
 	callstack 28
 	line	7
 	
-l1019:
+l1044:
 	clrf	((c:Dio_Init@i))^00h,c
 	line	9
 	
-l1025:
+l1050:
 	movf	((c:Dio_Init@i))^00h,c,w
 	mullw	08h
 	movff	prodl,??_Dio_Init+0
@@ -3140,14 +3521,14 @@ movlw	high(__smallconst)
 	movf	tablat,w
 	decf	wreg
 	btfss	status,2
-	goto	u121
-	goto	u120
-u121:
-	goto	l1029
-u120:
+	goto	u141
+	goto	u140
+u141:
+	goto	l1054
+u140:
 	line	11
 	
-l1027:
+l1052:
 	movf	((c:Dio_Init@i))^00h,c,w
 	mullw	08h
 	movff	prodl,??_Dio_Init+0
@@ -3201,10 +3582,10 @@ movlw	high(__smallconst)
 	movf	(??_Dio_Init+2)^00h,c,w
 	iorwf	indf2
 	line	12
-	goto	l1031
+	goto	l1056
 	line	15
 	
-l1029:
+l1054:
 	movf	((c:Dio_Init@i))^00h,c,w
 	mullw	08h
 	movff	prodl,??_Dio_Init+0
@@ -3261,21 +3642,21 @@ movlw	high(__smallconst)
 	andwf	indf2
 	line	17
 	
-l1031:
+l1056:
 	incf	((c:Dio_Init@i))^00h,c
 	
-l1033:
-		movlw	04h-1
+l1058:
+		movlw	05h-1
 	cpfsgt	((c:Dio_Init@i))^00h,c
-	goto	u131
-	goto	u130
+	goto	u151
+	goto	u150
 
-u131:
-	goto	l1025
-u130:
+u151:
+	goto	l1050
+u150:
 	line	18
 	
-l50:
+l59:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_Dio_Init
@@ -3312,12 +3693,12 @@ GLOBAL	__end_of_Dio_Init
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text12,class=CODE,space=0,reloc=2,group=0
+psect	text15,class=CODE,space=0,reloc=2,group=0
 	file	"src/button.c"
 	line	28
-global __ptext12
-__ptext12:
-psect	text12
+global __ptext15
+__ptext15:
+psect	text15
 	file	"src/button.c"
 	line	28
 	
@@ -3326,11 +3707,11 @@ _Button_Init:
 	callstack 27
 	line	32
 	
-l1035:
+l1060:
 	clrf	((c:Button_Init@i))^00h,c
 	line	34
 	
-l1041:
+l1066:
 	movf	((c:Button_Init@i))^00h,c,w
 	mullw	04h
 	movf	(prodl)^0f00h,c,w
@@ -3363,7 +3744,7 @@ movlw	high(__smallconst)
 
 	line	35
 	
-l1043:
+l1068:
 	movf	((c:Button_Init@i))^00h,c,w
 	mullw	02h
 	movf	(prodl)^0f00h,c,w
@@ -3374,7 +3755,7 @@ l1043:
 	clrf	postdec2
 	line	36
 	
-l1045:
+l1070:
 	movf	((c:Button_Init@i))^00h,c,w
 	addlw	low(_Button_State)
 	movwf	fsr2l
@@ -3382,21 +3763,21 @@ l1045:
 	clrf	indf2
 	line	37
 	
-l1047:
+l1072:
 	incf	((c:Button_Init@i))^00h,c
 	
-l1049:
+l1074:
 		movlw	02h-1
 	cpfsgt	((c:Button_Init@i))^00h,c
-	goto	u141
-	goto	u140
+	goto	u161
+	goto	u160
 
-u141:
-	goto	l1041
-u140:
+u161:
+	goto	l1066
+u160:
 	line	39
 	
-l94:
+l103:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_Button_Init
@@ -3412,7 +3793,7 @@ GLOBAL	__end_of_Button_Init
 ;; Auto vars:     Size  Location     Type
 ;;  channelId       1   18[COMRAM] enum E36
 ;; Return value:  Size  Location     Type
-;;                  1    wreg      enum E55
+;;                  1    wreg      enum E56
 ;; Registers used:
 ;;		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh
 ;; Tracked objects:
@@ -3434,12 +3815,12 @@ GLOBAL	__end_of_Button_Init
 ;;		_Button_Update
 ;; This function uses a non-reentrant model
 ;;
-psect	text13,class=CODE,space=0,reloc=2,group=0
+psect	text16,class=CODE,space=0,reloc=2,group=0
 	file	"src/dio.c"
 	line	20
-global __ptext13
-__ptext13:
-psect	text13
+global __ptext16
+__ptext16:
+psect	text16
 	file	"src/dio.c"
 	line	20
 	
@@ -3449,7 +3830,7 @@ _Dio_ReadChannel:
 	movwf	((c:Dio_ReadChannel@channelId))^00h,c
 	line	22
 	
-l953:
+l962:
 	movf	((c:Dio_ReadChannel@channelId))^00h,c,w
 	mullw	08h
 	movff	prodl,??_Dio_ReadChannel+0
@@ -3510,20 +3891,20 @@ movlw	high(__smallconst)
 	goto	u11
 	goto	u10
 u11:
-	goto	l961
+	goto	l970
 u10:
 	line	24
 	
-l955:
+l964:
 	movlw	(01h)&0ffh
-	goto	l54
+	goto	l63
 	line	28
 	
-l961:
+l970:
 	movlw	(0)&0ffh
 	line	30
 	
-l54:
+l63:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_Dio_ReadChannel
@@ -3590,28 +3971,28 @@ int_func:
 	movff	prodh+0,??_isr+5
 	line	12
 	
-i2l1097:
+i2l1122:
 	btfss	((c:4082))^0f00h,c,2	;volatile
-	goto	i2u20_41
-	goto	i2u20_40
-i2u20_41:
-	goto	i2l30
-i2u20_40:
+	goto	i2u22_41
+	goto	i2u22_40
+i2u22_41:
+	goto	i2l34
+i2u22_40:
 	line	14
 	
-i2l1099:
+i2l1124:
 	call	i2_timer0_reload	;wreg free
 	line	15
 	
-i2l1101:
+i2l1126:
 	call	_scheduler_tick	;wreg free
 	line	16
 	
-i2l1103:
+i2l1128:
 	bcf	((c:4082))^0f00h,c,2	;volatile
 	line	18
 	
-i2l30:
+i2l34:
 	movff	??_isr+5,prodh+0
 	movff	??_isr+4,prodl+0
 	movff	??_isr+3,fsr2h+0
@@ -3654,12 +4035,12 @@ GLOBAL	__end_of_isr
 ;;		_isr
 ;; This function uses a non-reentrant model
 ;;
-psect	text15,class=CODE,space=0,reloc=2,group=0
+psect	text18,class=CODE,space=0,reloc=2,group=0
 	file	"src/timer0.c"
 	line	30
-global __ptext15
-__ptext15:
-psect	text15
+global __ptext18
+__ptext18:
+psect	text18
 	file	"src/timer0.c"
 	line	30
 	
@@ -3668,7 +4049,7 @@ i2_timer0_reload:
 	callstack 25
 	line	32
 	
-i2l1095:
+i2l1120:
 	movlw	low(0FBh)
 	movwf	((c:4055))^0f00h,c	;volatile
 	line	33
@@ -3676,7 +4057,7 @@ i2l1095:
 	movwf	((c:4054))^0f00h,c	;volatile
 	line	34
 	
-i2l159:
+i2l168:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_ofi2_timer0_reload
@@ -3712,12 +4093,12 @@ GLOBAL	__end_ofi2_timer0_reload
 ;;		_isr
 ;; This function uses a non-reentrant model
 ;;
-psect	text16,class=CODE,space=0,reloc=2,group=0
+psect	text19,class=CODE,space=0,reloc=2,group=0
 	file	"src/scheduler.c"
 	line	33
-global __ptext16
-__ptext16:
-psect	text16
+global __ptext19
+__ptext19:
+psect	text19
 	file	"src/scheduler.c"
 	line	33
 	
@@ -3726,12 +4107,12 @@ _scheduler_tick:
 	callstack 25
 	line	36
 	
-i2l1007:
+i2l1032:
 	clrf	((c:scheduler_tick@i))^00h,c
-	goto	i2l1017
+	goto	i2l1042
 	line	38
 	
-i2l1009:
+i2l1034:
 	movf	((c:scheduler_tick@i))^00h,c,w
 	mullw	07h
 	movf	(prodl)^0f00h,c,w
@@ -3743,7 +4124,7 @@ i2l1009:
 	addwfc	postdec2
 	line	39
 	
-i2l1011:
+i2l1036:
 	movf	((c:scheduler_tick@i))^00h,c,w
 	mullw	07h
 	movf	(prodl)^0f00h,c,w
@@ -3761,15 +4142,15 @@ i2l1011:
 	movf	postinc2,w
 	subwfb	postinc1,w
 	btfss	status,0
-	goto	i2u10_41
-	goto	i2u10_40
+	goto	i2u12_41
+	goto	i2u12_40
 
-i2u10_41:
-	goto	i2l1015
-i2u10_40:
+i2u12_41:
+	goto	i2l1040
+i2u12_40:
 	line	41
 	
-i2l1013:
+i2l1038:
 	movf	((c:scheduler_tick@i))^00h,c,w
 	mullw	07h
 	movf	(prodl)^0f00h,c,w
@@ -3789,22 +4170,22 @@ i2l1013:
 	movwf	indf2
 	line	44
 	
-i2l1015:
+i2l1040:
 	incf	((c:scheduler_tick@i))^00h,c
 	
-i2l1017:
+i2l1042:
 		movf	((c:_task_count))^00h,c,w
 	subwf	((c:scheduler_tick@i))^00h,c,w
 	btfss	status,0
-	goto	i2u11_41
-	goto	i2u11_40
+	goto	i2u13_41
+	goto	i2u13_40
 
-i2u11_41:
-	goto	i2l1009
-i2u11_40:
+i2u13_41:
+	goto	i2l1034
+i2u13_40:
 	line	45
 	
-i2l128:
+i2l137:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_scheduler_tick

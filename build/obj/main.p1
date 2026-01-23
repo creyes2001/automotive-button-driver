@@ -21,8 +21,23 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _scheduler_tick `(v ~T0 @X0 0 ef ]
 "13 inc/button.h
 [v _Button_Update `(v ~T0 @X0 0 ef ]
+"27 main.c
+[c E3366 0 1 .. ]
+[n E3366 . BUTTON_RELEASED BUTTON_PRESSED  ]
+"14 inc/button.h
+[v _Button_GetState `(E3366 ~T0 @X0 0 ef1`uc ]
+"27 main.c
+[c E3404 0 1 2 .. ]
+[n E3404 . BUTTON_0 BUTTON_1 BUTTON_MAX  ]
+"29
+[c E3374 0 1 2 3 4 5 .. ]
+[n E3374 . DIO_CH_DOOR_SWITCH DIO_CH_COURTESY_LAMP DIO_CH_TURN_SIGNAL_LAMP DIO_CH_HAZARD_LAMP DIO_CH_HAZARD_SWITCH DIO_CH_MAX  ]
+[c E3394 0 1 .. ]
+[n E3394 . DIO_LEVEL_LOW DIO_LEVEL_HIGH  ]
+"16 inc/dio.h
+[v _Dio_WriteChannel `(v ~T0 @X0 0 ef2`E3374`E3394 ]
 [p mainexit ]
-"27 inc/dio.h
+"14
 [v _Dio_Init `(v ~T0 @X0 0 ef ]
 "12 inc/button.h
 [v _Button_Init `(v ~T0 @X0 0 ef ]
@@ -419,7 +434,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _isr ]
 [f ]
 "12
-[e $ ! != -> . . _INTCONbits 0 2 `i -> 0 `i 394  ]
+[e $ ! != -> . . _INTCONbits 0 2 `i -> 0 `i 395  ]
 "13
 {
 "14
@@ -430,9 +445,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
 "17
 }
-[e :U 394 ]
+[e :U 395 ]
 "18
-[e :UE 393 ]
+[e :UE 394 ]
 }
 "20
 [v _button_task `(v ~T0 @X0 1 ef ]
@@ -443,43 +458,72 @@ Version 4.0 HI-TECH Software Intermediate Code
 "22
 [e ( _Button_Update ..  ]
 "23
-[e :UE 395 ]
+[e :UE 396 ]
+}
+"25
+[v _test_task `(v ~T0 @X0 1 ef ]
+"26
+{
+[e :U _test_task ]
+[f ]
+"27
+[e $ ! == -> ( _Button_GetState (1 -> . `E3404 0 `uc `ui -> . `E3366 1 `ui 398  ]
+"28
+{
+"29
+[e ( _Dio_WriteChannel (2 , . `E3374 1 . `E3394 1 ]
+"30
+}
+[e $U 399  ]
+"31
+[e :U 398 ]
+"32
+{
+"33
+[e ( _Dio_WriteChannel (2 , . `E3374 1 . `E3394 0 ]
+"34
+}
+[e :U 399 ]
+"36
+[e :UE 397 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"26
+"38
 [v _main `(i ~T0 @X0 1 ef ]
-"27
+"39
 {
 [e :U _main ]
 [f ]
-"28
-[e ( _Dio_Init ..  ]
-"29
-[e ( _Button_Init ..  ]
-"30
-[e ( _scheduler_init ..  ]
-"31
-[e ( _timer0_init ..  ]
-"32
-[e ( _timer0_start ..  ]
-"34
-[e ( _enable_gi ..  ]
-"37
-[e ( _scheduler_add_task (2 , &U _button_task -> -> 10 `i `us ]
-"39
-[e :U 398 ]
 "40
-{
+[e ( _Dio_Init ..  ]
 "41
-[e ( _scheduler_run ..  ]
+[e ( _Button_Init ..  ]
 "42
-}
-[e :U 397 ]
-[e $U 398  ]
-[e :U 399 ]
+[e ( _scheduler_init ..  ]
+"43
+[e ( _timer0_init ..  ]
 "44
+[e ( _timer0_start ..  ]
+"46
+[e ( _enable_gi ..  ]
+"49
+[e ( _scheduler_add_task (2 , &U _button_task -> -> 10 `i `us ]
+"50
+[e ( _scheduler_add_task (2 , &U _test_task -> -> 5 `i `us ]
+"52
+[e :U 402 ]
+"53
+{
+"54
+[e ( _scheduler_run ..  ]
+"55
+}
+[e :U 401 ]
+[e $U 402  ]
+[e :U 403 ]
+"57
 [e ) -> 0 `i ]
-[e $UE 396  ]
-"45
-[e :UE 396 ]
+[e $UE 400  ]
+"58
+[e :UE 400 ]
 }

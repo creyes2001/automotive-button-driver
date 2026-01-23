@@ -1,9 +1,9 @@
 Version 4.0 HI-TECH Software Intermediate Code
 "6 src/dio_cfg.c
-[c E43 0 1 .. ]
-[n E43 . DIO_OUTPUT DIO_INPUT  ]
-"23 inc/dio_cfg.h
-[s S1 `*Vuc 1 `*Vuc 1 `*Vuc 1 `uc 1 `E43 1 ]
+[c E44 0 1 .. ]
+[n E44 . DIO_OUTPUT DIO_INPUT  ]
+"24 inc/dio_cfg.h
+[s S1 `*Vuc 1 `*Vuc 1 `*Vuc 1 `uc 1 `E44 1 ]
 [n S1 . tris port lat pinMask direction ]
 "3623 /opt/microchip/mplabx/v6.25/packs/Microchip/PIC18Fxxxx_DFP/1.7.171/xc8/pic/include/proc/pic18f4550.h
 [v _TRISB `Vuc ~T0 @X0 0 e@3987 ]
@@ -358,7 +358,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "8891
 [; <" TOSU equ 0FFFh ;# ">
 "6 src/dio_cfg.c
-[v _Dio_ChannelConfig `CS1 ~T0 @X0 -> 4 `i e ]
+[v _Dio_ChannelConfig `CS1 ~T0 @X0 -> 5 `i e ]
 [i _Dio_ChannelConfig
 :U ..
 :U ..
@@ -366,28 +366,35 @@ Version 4.0 HI-TECH Software Intermediate Code
 &U _PORTB
 &U _LATB
 -> << -> 1 `ui -> 0 `i `uc
-. `E43 1
+. `E44 1
 ..
 :U ..
 &U _TRISC
 &U _PORTC
 &U _LATC
 -> << -> 1 `ui -> 0 `i `uc
-. `E43 0
+. `E44 0
 ..
 :U ..
 &U _TRISC
 &U _PORTC
 &U _LATC
 -> << -> 1 `ui -> 1 `i `uc
-. `E43 0
+. `E44 0
 ..
 :U ..
 &U _TRISC
 &U _PORTC
 &U _LATC
 -> << -> 1 `ui -> 2 `i `uc
-. `E43 0
+. `E44 0
+..
+:U ..
+&U _TRISB
+&U _PORTB
+&U _LATB
+-> << -> 1 `ui -> 1 `i `uc
+. `E44 1
 ..
 ..
 ]

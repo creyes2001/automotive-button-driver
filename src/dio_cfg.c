@@ -32,6 +32,7 @@ const Dio_ChannelConfigType Dio_ChannelConfig[DIO_CH_MAX] =
 		.direction	= DIO_OUTPUT
 	},
 
+	
 	[DIO_CH_HAZARD_LAMP] =
 	{
 		.tris		= &TRISC,
@@ -39,6 +40,15 @@ const Dio_ChannelConfigType Dio_ChannelConfig[DIO_CH_MAX] =
 		.lat		= &LATC,
 		.pinMask	= (1U << 2),
 		.direction	= DIO_OUTPUT
+	},
+
+	[DIO_CH_HAZARD_SWITCH] =
+	{
+		.tris		= &TRISB,
+		.port		= &PORTB,
+		.lat		= &LATB,
+		.pinMask	= (1U << 1),
+		.direction	= DIO_INPUT
 	}
 };
 			
